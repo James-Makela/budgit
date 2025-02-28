@@ -14,6 +14,11 @@ return new class extends Migration
         Schema::create('all_costs', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->string('name');
+            $table->integer('amount_cents');
+            $table->integer('frequency_days');
+            $table->date('first_payment');
+            $table->string('category');
         });
     }
 

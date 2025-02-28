@@ -1,3 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.btn {
+    @apply rounded-xl px-3 py-1 bg-black hover:bg-green-400 hover:text-white;
+}
+
+.card {
+    @apply bg-slate-800 rounded-2xl border border-gray-200 px-3 py-3 my-2 flex justify-between items-center;
+}
+
+input {
+    @apply block w-2/3 mt-2 mb-4 p-2 bg-white;
+    color: black;
+}
