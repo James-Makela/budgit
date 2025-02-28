@@ -2,9 +2,9 @@
     <x-slot name="header">
         <div class="flex justify-between">
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                {{ __('All Costs') }}
+                {{ __('Categories') }}
             </h2>
-            <a href="{{ route('allCosts.create') }}" class="btn m-0 p-0">Add Cost</a>
+            <a href="" class="btn m-0 p-0">Add Category</a>
         </div>
     </x-slot>
 
@@ -12,14 +12,15 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    {{ __("Here is where you set and view all costs!") }}
+                    {{ __("Here is where you set and view all categories!") }}
                     <ul>
-                        @foreach ($allCosts as $cost)
+                        @foreach ($categories as $category)
                             <li>
-                                <x-line href="">
-                                    <h3>{{ $cost->name }}</h3>
-                                    <p>{{ $cost->amount_cents }}</p><D-s>
-                                </x-line>
+                                <x-card href="">
+                                    <div>
+                                        <h3>{{ $category->category_name }}</h3>
+                                    </div>
+                                </x-card>
                             </li>
                         @endforeach
                     </ul>
