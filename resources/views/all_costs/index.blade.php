@@ -18,7 +18,7 @@
                             <li>
                                 <x-line href="">
                                     <h3>{{ $cost->name }}</h3>
-                                    <p>{{ $cost->amount_cents }}</p><D-s>
+                                    <p>{{ $cost->amount_cents }}</p>
                                 </x-line>
                             </li>
                         @endforeach
