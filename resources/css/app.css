@@ -3,11 +3,11 @@
 @tailwind utilities;
 
 .btn {
-    @apply rounded-xl px-3 py-1 bg-black hover:bg-green-400 hover:text-white;
+    @apply rounded-xl px-3 py-1 bg-slate-300 hover:bg-green-900 hover:text-white;
 }
 
 .card {
-    @apply bg-slate-800 rounded-2xl border border-gray-200 px-3 py-3 my-2 flex justify-between items-center;
+    @apply bg-slate-800 rounded-2xl border border-gray-600 px-3 py-3 my-2 flex justify-between items-center;
 }
 
 input {

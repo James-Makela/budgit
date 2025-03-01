@@ -16,52 +16,56 @@
                         <h2>Add a new cost</h2>
 
                         <!-- cost name -->
-                        <label for="name">Cost Name:</label>
-                        <input
+                        <x-input-label for="name">Cost Name:</x-input-label>
+                        <x-text-input
                             type="text"
                             id="name"
                             name="name"
                             value="{{ old('name') }}"
                             required
-                        >
+                        ></x-text-input>
+
                         <!-- cost amount -->
-                        <label for="name">Cost Amount:</label>
-                        <input
+                        <x-input-label for="name">Cost Amount:</x-input-label>
+                        <x-text-input
                             type="integer"
                             id="amount_cents"
                             name="amount_cents"
                             value="{{ old('amount_cents') }}"
                             required
-                        >
+                        ></x-text-input>
+
                         <!-- cost frequency -->
-                        <label for="name">Cost Frequency (days):</label>
-                        <input
+                        <x-input-label for="name">Cost Frequency (days):</x-input-label>
+                        <x-text-input
                             type="integer"
                             id="frequency_days"
                             name="frequency_days"
                             value="{{ old('frequency_days') }}"
                             required
-                        >
+                        ></x-text-input>
+
                         <!-- cost name -->
-                        <label for="name">First Payment:</label>
-                        <input
+                        <x-input-label for="name">First Payment:</x-input-label>
+                        <x-text-input
                             type="date"
                             id="first_payment"
                             name="first_payment"
                             value="{{ old('first_payment') }}"
                             required
-                        >
+                        ></x-text-input>
+
                         <!-- cost category -->
-                        <label for="category">Category:</label>
-                        <input
+                        <x-input-label for="category">Category:</x-input-label>
+                        <x-text-input
                             type="text"
                             id="category"
                             name="category"
                             value="{{ old('category') }}"
                             required
-                        >
+                        ></x-text-input>
 
-                        <button type="submit" class="btn mt-4">Add Cost</button>
+                        <x-primary-button>Add Cost</x-primary-button>
                     </form>
                 </div>
             </div>
