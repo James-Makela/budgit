@@ -21,7 +21,9 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/all-costs', [AllCostsController::class, 'index'])->middleware(['auth', 'verified'])->name('allCosts.index');
 Route::get('/all-costs/create', [AllCostsController::class, 'create'])->middleware(['auth', 'verified'])->name('allCosts.create');
-Route::post('all-costs/', [AllCostsController::class, 'store'])->middleware(['auth', 'verified'])->name('allCosts.store');
+Route::get('/all-costs/{cost}', [AllCostsController::class, 'show'])->middleware(['auth', 'verified'])->name('allCosts.show');
+Route::post('/all-costs', [AllCostsController::class, 'store'])->middleware(['auth', 'verified'])->name('allCosts.store');
+Route::delete('/all-costs/{cost}', [AllCostsController::class, 'destroy'])->middleware(['auth', 'verified'])->name('allCosts.destroy');
 
 Route::get('/categories', [CategoryController::class, 'index'])->middleware(['auth', 'verified'])->name('categories.index');
 

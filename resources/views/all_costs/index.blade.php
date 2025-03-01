@@ -16,9 +16,18 @@
                     <ul>
                         @foreach ($allCosts as $cost)
                             <li>
-                                <x-line href="">
-                                    <h3>{{ $cost->name }}</h3>
-                                    <p>{{ $cost->amount_cents }}</p>
+                                <x-line href="{{ route('allCosts.show', $cost) }}">
+                                    <h3 class="w-1/3">{{ $cost->name }}</h3>
+                                    <p class="flex-1 text-left">{{ $cost->category->category_name }}</p>
+                                    <p class="w-24 text-right">{{ $cost->formatted_amount_cents }}</p>
+                                    <form action="{{ route('allCosts.destroy', $cost->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+
+                                        <x-danger-button type="submit">
+                                            Delete
+                                        </x-danger-button>
+                                    </form>
                                 </x-line>
                             </li>
                         @endforeach

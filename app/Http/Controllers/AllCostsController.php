@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\AllCosts;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class AllCostsController extends Controller
@@ -13,21 +14,35 @@ class AllCostsController extends Controller
         return view('all_costs.index', ["allCosts" => $allCosts]);
     }
 
+    public function show(AllCosts $allCosts) {
+        $allCosts->load('category');
+
+        return view('all_costs.show', ['allCosts' => $allCosts]);
+    }
+
     public function create() {
-        return view('all_costs.create');
+        $categories = Category::all();
+
+        return view('all_costs.create', ['categories' => $categories]);
     }
 
     public function store(Request $request) {
         $validated = $request->validate([
             'name' => 'required|string|max:150',
-            'amount_cents' => 'required|integer',
+            'amount_cents' => 'required|decimal:2',
             'frequency_days' => 'integer',
             'first_payment' => 'date',
-            'category' => 'string|max:255',
+            'category_id' => 'required|exists:categories,id',
         ]);
 
         AllCosts::create($validated);
 
         return redirect()->route('allCosts.index')->with('success', 'Cost Added!');
+    }
+
+    public function destroy(AllCosts $cost) {
+        $cost->delete();
+
+        return redirect()->route('allCosts.index')->with('success', 'Cost Deleted!');
     }
 }

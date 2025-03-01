@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('amount_cents');
             $table->integer('frequency_days');
             $table->date('first_payment');
-            $table->string('category');
+            $table->foreignId('category_id')->constrained();
         });
     }
 

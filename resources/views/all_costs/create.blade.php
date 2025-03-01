@@ -26,9 +26,9 @@
                         ></x-text-input>
 
                         <!-- cost amount -->
-                        <x-input-label for="name">Cost Amount:</x-input-label>
+                        <x-input-label for="amount_cents">Cost Amount:</x-input-label>
                         <x-text-input
-                            type="integer"
+                            type="float"
                             id="amount_cents"
                             name="amount_cents"
                             value="{{ old('amount_cents') }}"
@@ -36,7 +36,7 @@
                         ></x-text-input>
 
                         <!-- cost frequency -->
-                        <x-input-label for="name">Cost Frequency (days):</x-input-label>
+                        <x-input-label for="frequency_days">Cost Frequency (days):</x-input-label>
                         <x-text-input
                             type="integer"
                             id="frequency_days"
@@ -46,7 +46,7 @@
                         ></x-text-input>
 
                         <!-- cost name -->
-                        <x-input-label for="name">First Payment:</x-input-label>
+                        <x-input-label for="first_payment">First Payment:</x-input-label>
                         <x-text-input
                             type="date"
                             id="first_payment"
@@ -56,16 +56,30 @@
                         ></x-text-input>
 
                         <!-- cost category -->
-                        <x-input-label for="category">Category:</x-input-label>
-                        <x-text-input
-                            type="text"
-                            id="category"
-                            name="category"
-                            value="{{ old('category') }}"
+                        <x-input-label for="category_id">Category:</x-input-label>
+                        <select
+                            id="category_id"
+                            name="category_id"
                             required
-                        ></x-text-input>
+                            class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm mb-4">
+                            <option value="" disabled selected>Select a Category</option>
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}" {{ $category->id == old('category_id') ? 'selected' : '' }}>
+                                    {{ $category->category_name }}
+                                </option>
+                            @endforeach
+                        </select>
 
                         <x-primary-button>Add Cost</x-primary-button>
+
+                        <!-- validation errors -->
+                        @if ($errors->any())
+                            <ul class="px-4 py-2 bg-red-100">
+                            @foreach($errors->all() as $error)
+                                <li class="my-2 text-red-500">{{ $error }}</li>
+                            @endforeach
+                            </ul>
+                        @endif
                     </form>
                 </div>
             </div>
