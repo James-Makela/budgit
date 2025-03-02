@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
+    protected $fillable = ['name', 'color', 'icon'];
     /** @use HasFactory<\Database\Factories\CategoryFactory> */
     use HasFactory;
 
     public function categories() {
-        return $this->hasMany(AllCosts::class);
+        return $this->hasMany(Cost::class);
     }
 }

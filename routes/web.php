@@ -1,30 +1,23 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\AllCostsController;
-use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CostController;
+use App\Models\Cost;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 Route::get('/', function () {
-    return view('welcome');
+    return Inertia::render('welcome');
+})->name('home');
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('dashboard', function () {
+        return Inertia::render('dashboard');
+    })->name('dashboard');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('costs', [CostController::class, 'index'])->name('costs');
 });
 
-Route::get('/all-costs', [AllCostsController::class, 'index'])->middleware(['auth', 'verified'])->name('allCosts.index');
-Route::get('/all-costs/create', [AllCostsController::class, 'create'])->middleware(['auth', 'verified'])->name('allCosts.create');
-Route::get('/all-costs/{cost}', [AllCostsController::class, 'show'])->middleware(['auth', 'verified'])->name('allCosts.show');
-Route::post('/all-costs', [AllCostsController::class, 'store'])->middleware(['auth', 'verified'])->name('allCosts.store');
-Route::delete('/all-costs/{cost}', [AllCostsController::class, 'destroy'])->middleware(['auth', 'verified'])->name('allCosts.destroy');
-
-Route::get('/categories', [CategoryController::class, 'index'])->middleware(['auth', 'verified'])->name('categories.index');
-
+require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';
