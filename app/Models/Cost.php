@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Model;
 class Cost extends Model
 {
     protected $fillable = ['name', 'amount_cents', 'frequency_id', 'first_payment', 'category_id'];
-    protected $appends = ['formatted_amount_cents'];
 
     /** @use HasFactory<\Database\Factories\CostFactory> */
     use HasFactory;
@@ -20,12 +19,6 @@ class Cost extends Model
         return Attribute::make(
             set: fn (float $value) => intval(round($value * 100)),
         );
-    }
-
-    // Get dollars amount as string
-    public function getFormattedAmountCentsAttribute(): String
-    {
-        return "$" . number_format($this->amount_cents / 100, 2, '.', ',');
     }
 
     public function category() {
