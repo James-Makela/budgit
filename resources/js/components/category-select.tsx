@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
     Select,
     SelectItem,
@@ -16,29 +16,31 @@ interface Category {
 }
 
 interface CategorySelectProps {
-    value: string;
-    onChange: (value: string) => void;
+    value: number;
+    collectionLocation: string;
+    placeholder: string;
+    onChange: (value: number) => void;
 }
 
-const CategorySelect = ({ value, onChange }: CategorySelectProps) => {
+const CategorySelect = ({ value, collectionLocation, placeholder, onChange }: CategorySelectProps) => {
     const [items, setItems] = useState<Category[]>([]);
 
     useEffect(() => {
         // fetch the data from the laravel backend
-        axios.get('/api/categories')
+        axios.get(collectionLocation)
             .then((response) => {
                 setItems(response.data);
             })
             .catch((error) => {
-                  console.error('Error fetching categories:', error);
+                  console.error('Error fetching data:', error);
             });
 
-    }, []);
+    }, );
 
     return (
-        <Select value={value} onValueChange={onChange}>
+        <Select value={String(value)} onValueChange={(value) => onChange(Number(value))}>
             <SelectTrigger className="w-[180px]">
-                <SelectValue placeholder="Category" />
+                <SelectValue placeholder={placeholder} />
             </SelectTrigger>
             <SelectContent>
             {items.map((item) => (

@@ -1,9 +1,10 @@
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Controller, useForm } from "react-hook-form"
+import { useForm } from "react-hook-form"
 import { z } from "zod"
 
+import { MoneyInput } from "@/components/ui/money-input"
 import { Button } from "@/components/ui/button"
 import {
     Form,
@@ -23,9 +24,9 @@ const formSchema = z.object({
     }).max(50, {
         message: "Cost name must not exceed 50 characters.",
     }),
-    cost: z.number().safe(),
-    category: z.string(),
-
+    cost: z.coerce.number().min(0.01, "Required"),
+    frequency: z.number(),
+    category: z.number(),
 })
 
 export function CostForm() {
@@ -33,7 +34,9 @@ export function CostForm() {
         resolver: zodResolver(formSchema),
         defaultValues: {
             name: "",
+            cost: 0,
         },
+        mode: "onTouched",
     })
 
     function onSubmit(values: z.infer<typeof formSchema>) {
@@ -66,9 +69,8 @@ export function CostForm() {
                     name="cost"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>Cost Amount</FormLabel>
                             <FormControl>
-                                <Input placeholder="shadcn" {...field} />
+                                <MoneyInput form={form} label="Cost Amount" placeholder="$0.00" {...field} />
                             </FormControl>
                             <FormDescription>
                                 This is the amnount of your cost.
@@ -79,6 +81,28 @@ export function CostForm() {
                 />
                 <FormField
                     control={form.control}
+                    name="frequency"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Frequency</FormLabel>
+                            <FormControl>
+                                <CategorySelect
+                                    value={field.value}
+                                    collectionLocation="/api/frequencies"
+                                    placeholder="Frequency"
+                                    onChange={field.onChange}
+                                />
+                            </FormControl>
+                            <FormDescription>
+                                How often do you need to pay this cost?
+                            </FormDescription>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+
+                <FormField
+                    control={form.control}
                     name="category"
                     render={({ field }) => (
                         <FormItem>
@@ -86,8 +110,9 @@ export function CostForm() {
                             <FormControl>
                                 <CategorySelect
                                     value={field.value}
+                                    collectionLocation="/api/categories"
+                                    placeholder = "Category"
                                     onChange={field.onChange}
-                                    className="w-full"
                                 />
                             </FormControl>
                             <FormDescription>
