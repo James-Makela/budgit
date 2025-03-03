@@ -15,6 +15,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import { Button } from "./button"
+import { TrashIcon } from "lucide-react"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -64,6 +66,9 @@ export function DataTable<TData, TValue>({
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
                 ))}
+              <TableCell className="group flex justify-end mr-2">
+                <Button className="opacity-0 group-hover:opacity-100 transition duration-300" variant={"destructive"} size={"icon"}><TrashIcon/></Button>
+              </TableCell>
               </TableRow>
             ))
           ) : (

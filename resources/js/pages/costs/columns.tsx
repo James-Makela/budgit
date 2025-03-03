@@ -48,9 +48,13 @@ export const columns: ColumnDef<Cost>[] = [
         return <div className="text-right font-medium">{formatted}</div>
     },
   },
+  // TODO: Format to the right
   {
     accessorKey: "category",
-    header: "Category",
+    header: () => <div className="text-right">Category</div>,
+    cell: ({ row }) => {
+        return <div className="text-right">{row.getValue("category")}</div>
+    },
   },
 ]
 

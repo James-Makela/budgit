@@ -3,13 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\CostResource;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Cost;
+use Inertia\Response;
 
 class CostController extends Controller
 {
-    public function index()
+    public function index(): Response
     {
         $costs = CostResource::collection(Cost::with('category', 'frequency')->get())->toArray(request());
         // $costs->load('category', 'frequency');
@@ -19,11 +21,11 @@ class CostController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
             'name' => 'required|string|max:150',
-            'amount_cents' => 'required|decimal:2',
+            'amount_cents' => 'required|decimal:0,2',
             'frequency_id' => 'required|integer',
             'category_id' => 'required|integer',
         ]);
