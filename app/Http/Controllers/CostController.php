@@ -18,4 +18,18 @@ class CostController extends Controller
             'costs' => $costs
         ]);
     }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:150',
+            'amount_cents' => 'required|decimal:2',
+            'frequency_id' => 'required|integer',
+            'category_id' => 'required|integer',
+        ]);
+
+        Cost::create($validated);
+
+        return redirect()->route('costs')->with('success', 'Cost Added!');
+    }
 }

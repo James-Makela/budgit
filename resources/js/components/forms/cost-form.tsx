@@ -3,6 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
+import axios from "axios"
 
 import { MoneyInput } from "@/components/ui/money-input"
 import { Button } from "@/components/ui/button"
@@ -24,9 +25,9 @@ const formSchema = z.object({
     }).max(50, {
         message: "Cost name must not exceed 50 characters.",
     }),
-    cost: z.coerce.number().min(0.01, "Required"),
-    frequency: z.number(),
-    category: z.number(),
+    amount_cents: z.coerce.number().min(0.01, "Required"),
+    frequency_id: z.number(),
+    category_id: z.number(),
 })
 
 export function CostForm() {
@@ -34,7 +35,7 @@ export function CostForm() {
         resolver: zodResolver(formSchema),
         defaultValues: {
             name: "",
-            cost: 0,
+            amount_cents: 0,
         },
         mode: "onTouched",
     })
@@ -43,6 +44,15 @@ export function CostForm() {
         // Do something with the form values
         // This will be typesafe and validated
         console.log(values);
+        axios.post("/api/costs", values)
+            .then((response) => {
+                console.log("Cost saved:", response.data);
+                alert("Cost saved successfully!");
+            })
+            .catch((error) => {
+                console.error("Error saving cost:", error.response?.data);
+                alert("Failed to save cost.")
+            });
     }
 
     return (
@@ -66,7 +76,7 @@ export function CostForm() {
                 />
                 <FormField
                     control={form.control}
-                    name="cost"
+                    name="amount_cents"
                     render={({ field }) => (
                         <FormItem>
                             <FormControl>
@@ -81,7 +91,7 @@ export function CostForm() {
                 />
                 <FormField
                     control={form.control}
-                    name="frequency"
+                    name="frequency_id"
                     render={({ field }) => (
                         <FormItem>
                             <FormLabel>Frequency</FormLabel>
@@ -103,7 +113,7 @@ export function CostForm() {
 
                 <FormField
                     control={form.control}
-                    name="category"
+                    name="category_id"
                     render={({ field }) => (
                         <FormItem>
                             <FormLabel>Cost Category</FormLabel>
