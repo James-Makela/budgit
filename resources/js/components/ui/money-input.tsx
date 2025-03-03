@@ -8,11 +8,11 @@ import {
   FormMessage,
 } from "../ui/form"; // Shadcn UI import
 import { Input } from "../ui/input"; // Shandcn UI Input
-import { UseFormReturn } from "react-hook-form";
+import { FieldValues, UseFormReturn, Path } from "react-hook-form";
 
-type TextInputProps = {
-  form: UseFormReturn<any>;
-  name: string;
+type TextInputProps<T extends FieldValues> = {
+  form: UseFormReturn<T>;
+  name: Path<T>;
   label: string;
   placeholder: string;
 };
@@ -27,17 +27,17 @@ const moneyFormatter = Intl.NumberFormat("en-AU", {
   maximumFractionDigits: 2,
 });
 
-function MoneyInput(props: TextInputProps) {
-  const initialValue = props.form.getValues()[props.name]
-    ? moneyFormatter.format(props.form.getValues()[props.name])
+function MoneyInput<T extends FieldValues>({ form, name, label, placeholder}: TextInputProps<T>) {
+  const initialValue = form.getValues()[name]
+    ? moneyFormatter.format(form.getValues()[name])
     : "";
 
-  const [value, setValue] = useReducer((_: any, next: string) => {
+  const [value, setValue] = useReducer((_: string, next: string) => {
     const digits = next.replace(/\D/g, "");
     return moneyFormatter.format(Number(digits) / 100);
   }, initialValue);
 
-  function handleChange(realChangeFn: Function, formattedValue: string) {
+  function handleChange(realChangeFn: (value: number) => void, formattedValue: string) {
     const digits = formattedValue.replace(/\D/g, "");
     const realValue = Number(digits) / 100;
     realChangeFn(realValue);
@@ -45,18 +45,17 @@ function MoneyInput(props: TextInputProps) {
 
   return (
     <FormField
-      control={props.form.control}
-      name={props.name}
+      control={form.control}
+      name={name}
       render={({ field }) => {
-        field.value = value;
         const _change = field.onChange;
 
         return (
           <FormItem>
-            <FormLabel>{props.label}</FormLabel>
+            <FormLabel>{label}</FormLabel>
             <FormControl>
               <Input
-                placeholder={props.placeholder}
+                placeholder={placeholder}
                 type="text"
                 {...field}
                 onChange={(ev) => {
