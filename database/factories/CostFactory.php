@@ -20,7 +20,7 @@ class CostFactory extends Factory
     {
         return [
             'name' => fake()->word(),
-            'amount_cents' => fake()->numberBetween(100, 1000000),
+            'amount_cents' => fake()->numberBetween(1, 10000),
             'frequency_id' => Frequency::inRandomOrder()->first()->id,
             'first_payment' => fake()->dateTimeThisMonth(),
             'category_id' => Category::inRandomOrder()->first()->id,
