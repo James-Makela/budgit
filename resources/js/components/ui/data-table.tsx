@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/table"
 import { Button } from "./button"
 import { TrashIcon } from "lucide-react"
+import { deleteCost } from "@/utils/cost-actions"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -51,6 +52,7 @@ export function DataTable<TData, TValue>({
                   </TableHead>
                 )
               })}
+            <TableHead></TableHead>
             </TableRow>
           ))}
         </TableHeader>
@@ -66,14 +68,14 @@ export function DataTable<TData, TValue>({
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
                 ))}
-              <TableCell className="group flex justify-end mr-2">
-                <Button className="opacity-0 group-hover:opacity-100 transition duration-300" variant={"destructive"} size={"icon"}><TrashIcon/></Button>
+              <TableCell className="flex justify-end pr-4">
+                <Button onClick={() => deleteCost(row.getValue('id'))} className="bg-sidebar hover:bg-destructive/90 transition duration-500" variant={"destructive"} size={"icon"}><TrashIcon/></Button>
               </TableCell>
               </TableRow>
             ))
           ) : (
             <TableRow>
-              <TableCell colSpan={columns.length} className="h-24 text-center">
+              <TableCell colSpan={columns.length + 1} className="h-24 text-center">
                 No results.
               </TableCell>
             </TableRow>

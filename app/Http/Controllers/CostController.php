@@ -34,4 +34,11 @@ class CostController extends Controller
 
         return redirect()->route('costs')->with('success', 'Cost Added!');
     }
+
+    public function destroy(String $id)
+    {
+        $cost = Cost::find($id);
+
+        $cost->delete();
+    }
 }
