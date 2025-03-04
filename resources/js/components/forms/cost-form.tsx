@@ -66,7 +66,7 @@ export function CostForm() {
                         <FormItem>
                             <FormLabel>Cost Name</FormLabel>
                             <FormControl>
-                                <Input placeholder="shadcn" {...field} />
+                                <Input placeholder="Cost" {...field} />
                             </FormControl>
                             <FormDescription>
                                 This is the name of your cost.
