@@ -17,7 +17,8 @@ import {
     FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import CategorySelect from "../category-select"
+import CollectionSelect from "../collection-select"
+import { router } from "@inertiajs/react"
 
 const formSchema = z.object({
     name: z.string().min(2, {
@@ -47,7 +48,7 @@ export function CostForm() {
         axios.post("/api/costs", values)
             .then((response) => {
                 console.log("Cost saved:", response.data);
-                alert("Cost saved successfully!");
+                router.visit("costs")
             })
             .catch((error) => {
                 console.error("Error saving cost:", error.response?.data);
@@ -96,7 +97,7 @@ export function CostForm() {
                         <FormItem>
                             <FormLabel>Frequency</FormLabel>
                             <FormControl>
-                                <CategorySelect
+                                <CollectionSelect
                                     value={field.value}
                                     collectionLocation="/api/frequencies"
                                     placeholder="Frequency"
@@ -118,7 +119,7 @@ export function CostForm() {
                         <FormItem>
                             <FormLabel>Cost Category</FormLabel>
                             <FormControl>
-                                <CategorySelect
+                                <CollectionSelect
                                     value={field.value}
                                     collectionLocation="/api/categories"
                                     placeholder = "Category"
