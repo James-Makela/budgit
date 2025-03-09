@@ -13,21 +13,23 @@ Route::get('/', function () {
 })->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('dashboard', function () {
+    Route::get('/dashboard', function () {
         return Inertia::render('dashboard');
     })->name('dashboard');
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('costs', [CostController::class, 'index'])->name('costs');
-    Route::post('api/costs', [CostController::class, 'store']);
-    Route::delete('costs/{id}', [CostController::class, 'destroy']);
+    Route::get('/costs', [CostController::class, 'index'])->name('costs');
+    Route::post('/api/costs', [CostController::class, 'store']);
+    Route::delete('/costs/{id}', [CostController::class, 'destroy']);
+
+    Route::get('/categories', [CategoryController::class, 'index'])->name('categories');
 });
 
 // TODO: Move api routes to api file
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('api/categories', [CategoryController::class, 'categoryNames']);
-    Route::get('api/frequencies', [FrequencyController::class, 'frequencyNames']);
+    Route::get('/api/categories', [CategoryController::class, 'categoryNames']);
+    Route::get('/api/frequencies', [FrequencyController::class, 'frequencyNames']);
 });
 
 

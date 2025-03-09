@@ -28,7 +28,7 @@ export default function Costs({ costs }: { costs: Cost[] }) {
                         <Button>Add Cost</Button>
                     </PopoverTrigger>
                     <PopoverContent className="w-100">
-                        <Card className="p-4 m-4 border-white">
+                        <Card className="p-4 m-4">
                             <CostForm />
                         </Card>
                     </PopoverContent>

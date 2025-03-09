@@ -5,7 +5,6 @@ import { useForm } from "react-hook-form"
 import { z } from "zod"
 import axios from "axios"
 
-import { MoneyInput } from "@/components/ui/money-input"
 import { Button } from "@/components/ui/button"
 import {
     Form,
@@ -22,21 +21,19 @@ import { router } from "@inertiajs/react"
 
 const formSchema = z.object({
     name: z.string().min(2, {
-        message: "Cost name must be at least 2 characters.",
+        message: "Category name must be at least 2 characters.",
     }).max(50, {
-        message: "Cost name must not exceed 50 characters.",
+        message: "Category name must not exceed 50 characters.",
     }),
-    amount_cents: z.coerce.number().min(0.01, "Required"),
-    frequency_id: z.number(),
-    category_id: z.number(),
+    color: z.string().min(7).max(7),
+    icon: z.string().min(2).max(50),
 })
 
-export function CostForm() {
+export function CategoryForm() {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
             name: "",
-            amount_cents: 0,
         },
         mode: "onTouched",
     })
@@ -47,7 +44,7 @@ export function CostForm() {
         console.log(values);
         axios.post("/api/costs", values)
             .then((response) => {
-                console.log("Cost saved:", response.data);
+                console.log("Category saved:", response.data);
                 router.visit("costs")
             })
             .catch((error) => {
@@ -64,12 +61,12 @@ export function CostForm() {
                     name="name"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>Cost Name</FormLabel>
+                            <FormLabel>Category Name</FormLabel>
                             <FormControl>
-                                <Input placeholder="Cost" {...field} />
+                                <Input placeholder="Category" {...field} />
                             </FormControl>
                             <FormDescription>
-                                This is the name of your cost.
+                                This is the name of your category.
                             </FormDescription>
                             <FormMessage />
                         </FormItem>
@@ -77,14 +74,15 @@ export function CostForm() {
                 />
                 <FormField
                     control={form.control}
-                    name="amount_cents"
+                    name="color"
                     render={({ field }) => (
                         <FormItem>
+                            <FormLabel>Colour</FormLabel>
                             <FormControl>
-                                <MoneyInput form={form} label="Cost Amount" placeholder="$0.00" {...field} />
+                                <Input placeholder="Colour" {...field} />
                             </FormControl>
                             <FormDescription>
-                                This is the amount of your cost.
+                                A colour for your category.
                             </FormDescription>
                             <FormMessage />
                         </FormItem>
@@ -92,42 +90,15 @@ export function CostForm() {
                 />
                 <FormField
                     control={form.control}
-                    name="frequency_id"
+                    name="icon"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>Frequency</FormLabel>
+                            <FormLabel>Icon</FormLabel>
                             <FormControl>
-                                <CollectionSelect
-                                    value={field.value}
-                                    collectionLocation="/api/frequencies"
-                                    placeholder="Frequency"
-                                    onChange={field.onChange}
-                                />
+                                <Input placeholder="Icon" {...field} />
                             </FormControl>
                             <FormDescription>
-                                How often do you need to pay this cost?
-                            </FormDescription>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-
-                <FormField
-                    control={form.control}
-                    name="category_id"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>Cost Category</FormLabel>
-                            <FormControl>
-                                <CollectionSelect
-                                    value={field.value}
-                                    collectionLocation="/api/categories"
-                                    placeholder = "Category"
-                                    onChange={field.onChange}
-                                />
-                            </FormControl>
-                            <FormDescription>
-                                What category does your cost fit into?
+                                An icon for your category.
                             </FormDescription>
                             <FormMessage />
                         </FormItem>

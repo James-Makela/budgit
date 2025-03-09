@@ -4,7 +4,7 @@ import { NavUser } from '@/components/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { Banknote, BookOpen, Folder, LayoutGrid } from 'lucide-react';
+import { Banknote, BookOpen, Folder, Group, LayoutGrid } from 'lucide-react';
 import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
@@ -17,6 +17,11 @@ const mainNavItems: NavItem[] = [
         title: 'Costs',
         url: '/costs',
         icon: Banknote,
+    },
+    {
+        title: 'Categories',
+        url: '/categories',
+        icon: Group,
     },
 ];
 
