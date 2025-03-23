@@ -1,4 +1,4 @@
-import { Category, columns } from "./columns";
+import { type Category, columns } from "./columns";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { DataTable } from "@/components/ui/data-table";

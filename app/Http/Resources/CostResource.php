@@ -20,6 +20,7 @@ class CostResource extends JsonResource
             'amount' => $this->amount_cents / 100,
             'yearly_cost' => $this->yearly_cost,
             'category' => $this->category->name,
+            'category_color' => $this->category->color,
             'frequency' => $this->frequency->name,
         ];
     }

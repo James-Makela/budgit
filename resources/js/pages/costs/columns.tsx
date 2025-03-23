@@ -1,6 +1,7 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table"
+import { Badge } from "@/components/ui/badge"
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -11,6 +12,7 @@ export type Cost = {
   yearly_cost: string
   amount_per_budget: string
   category: string
+  category_color: string
   frequency: string
 }
 
@@ -21,13 +23,6 @@ export const columns: ColumnDef<Cost>[] = [
     cell: ({ row }) => {
         return <div className="text-right">{row.getValue("name")}</div>
     }
-  },
-  {
-      accessorKey: "frequency",
-      header: () => <div className="text-right">Frequency</div>,
-      cell: ({ row }) => {
-          return <div className="text-right">{row.getValue("frequency")}</div>
-      }
   },
   {
     accessorKey: "amount",
@@ -43,6 +38,13 @@ export const columns: ColumnDef<Cost>[] = [
     },
   },
   {
+      accessorKey: "frequency",
+      header: () => <div className="text-right">Frequency</div>,
+      cell: ({ row }) => {
+          return <div className="text-right">{row.getValue("frequency")}</div>
+      }
+  },
+ {
     accessorKey: "yearly_cost",
     header: () => <div className="text-right">Amount (per year)</div>,
     cell: ({ row }) => {
@@ -59,7 +61,10 @@ export const columns: ColumnDef<Cost>[] = [
     accessorKey: "category",
     header: () => <div className="text-right">Category</div>,
     cell: ({ row }) => {
-        return <div className="text-right">{row.getValue("category")}</div>
+        const category_color: string = row.getValue("category_color") || "#9E9E9E";
+        return <div className="flex justify-end items-center">
+          <Badge variant="outline" className="justify-center font-bold font-" style={{ backgroundColor: category_color }}>{row.getValue("category")}</Badge>
+        </div>
     },
   },
   {
@@ -67,5 +72,10 @@ export const columns: ColumnDef<Cost>[] = [
       header: () => <div hidden></div>,
       cell: () => <div hidden></div>,
   },
+  {
+    accessorKey: "category_color",
+    header: () => <div hidden></div>,
+    cell: () => <div hidden></div>,
+},
 ]
 

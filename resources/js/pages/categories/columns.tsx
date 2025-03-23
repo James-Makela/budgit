@@ -27,7 +27,9 @@ export const columns: ColumnDef<Category>[] = [
       accessorKey: "color",
       header: () => <div className="text-right">Colour</div>,
       cell: ({ row }) => {
-          return <div className="text-right">{row.getValue("frequency")}</div>
+          return <div className="flex justify-end">
+            <div className="w-5 h-5 rounded-full text-right mx-8" style={{ backgroundColor: row.getValue("color") }}></div>
+          </div>
       }
   },
   {

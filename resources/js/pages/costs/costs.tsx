@@ -1,4 +1,4 @@
-import { Cost, columns } from "./columns";
+import { type Cost, columns } from "./columns";
 import { DataTable } from '@/components/ui/data-table';
 import AppLayout from '@/layouts/app-layout';
 import { Card } from '@/components/ui/card';

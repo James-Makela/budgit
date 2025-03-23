@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\CostResource;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -21,7 +22,7 @@ class CostController extends Controller
         ]);
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request): JsonResponse
     {
         $validated = $request->validate([
             'name' => 'required|string|max:150',
@@ -32,7 +33,7 @@ class CostController extends Controller
 
         Cost::create($validated);
 
-        return redirect()->route('costs')->with('success', 'Cost Added!');
+        return response()->json($validated, 201);
     }
 
     public function destroy(String $id)

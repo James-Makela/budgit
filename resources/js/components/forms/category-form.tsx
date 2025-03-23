@@ -16,7 +16,6 @@ import {
     FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import CollectionSelect from "../collection-select"
 import { router } from "@inertiajs/react"
 
 const formSchema = z.object({
@@ -42,10 +41,10 @@ export function CategoryForm() {
         // Do something with the form values
         // This will be typesafe and validated
         console.log(values);
-        axios.post("/api/costs", values)
+        axios.post("/api/categories", values)
             .then((response) => {
                 console.log("Category saved:", response.data);
-                router.visit("costs")
+                router.visit("categories")
             })
             .catch((error) => {
                 console.error("Error saving cost:", error.response?.data);
