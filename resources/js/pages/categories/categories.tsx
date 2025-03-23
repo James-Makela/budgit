@@ -2,11 +2,10 @@ import { type Category, columns } from "./columns";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { DataTable } from "@/components/ui/data-table";
-import { Popover } from "@/components/ui/popover";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import AppLayout from "@/layouts/app-layout";
 import { type BreadcrumbItem } from "@/types"
 import { Head } from "@inertiajs/react";
-import { PopoverContent, PopoverTrigger } from "@radix-ui/react-popover";
 import { CategoryForm } from "@/components/forms/category-form";
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -26,10 +25,8 @@ export default function Categories({ categories }: {categories: Category[] }) {
                     <PopoverTrigger asChild>
                         <Button>Add Category</Button>
                     </PopoverTrigger>
-                    <PopoverContent className="w-100">
-                        <Card className="p-4 m-4">
+                    <PopoverContent className="w-100 p-4 m-4">
                             <CategoryForm />
-                        </Card>
                     </PopoverContent>
                 </Popover>
             </Card>

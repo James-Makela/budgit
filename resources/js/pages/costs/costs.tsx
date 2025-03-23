@@ -5,8 +5,7 @@ import { Card } from '@/components/ui/card';
 import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/react';
 import { Button } from "@/components/ui/button";
-import { Popover } from "@/components/ui/popover"
-import { PopoverContent, PopoverTrigger } from "@radix-ui/react-popover";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { CostForm } from "@/components/forms/cost-form";
 
 
@@ -27,10 +26,8 @@ export default function Costs({ costs }: { costs: Cost[] }) {
                     <PopoverTrigger asChild>
                         <Button>Add Cost</Button>
                     </PopoverTrigger>
-                    <PopoverContent className="w-100">
-                        <Card className="p-4 m-4">
-                            <CostForm />
-                        </Card>
+                    <PopoverContent className="w-100 p-4 m-4">
+                        <CostForm />
                     </PopoverContent>
                 </Popover>
             </Card>
