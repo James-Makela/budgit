@@ -19,9 +19,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { Button } from "./button"
-import { TrashIcon } from "lucide-react"
-import { deleteCost } from "@/utils/cost-actions"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
