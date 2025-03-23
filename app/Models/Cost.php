@@ -23,7 +23,7 @@ class Cost extends Model
         );
     }
 
-    protected function yearlyCost(): Attribute
+    public function yearlyCost(): Attribute
     {
         return Attribute::make(
             get: fn () => $this->calculateYearlyCost()
@@ -31,7 +31,7 @@ class Cost extends Model
     }
 
     // Calculate the yearly cost based on cost frequency
-    public function calculateYearlyCost() {
+    protected function calculateYearlyCost() {
         if (!$this->frequency || $this->frequency->days == 0)
         {
             return $this->amount_cents;

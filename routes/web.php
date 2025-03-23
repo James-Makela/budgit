@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CostController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FrequencyController;
 use App\Models\Cost;
 use App\Models\Frequency;
@@ -13,9 +14,7 @@ Route::get('/', function () {
 })->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/dashboard', function () {
-        return Inertia::render('dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -25,7 +24,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/categories', [CategoryController::class, 'index'])->name('categories');
     Route::post('/api/categories', [CategoryController::class, 'store']);
-    Route::delete('/categories/{id}', [CategoryController::class, 'destroy']);
+    Route::delete('/categories/{id}', [CostController::class, 'destroy']);
 });
 
 // TODO: Move api routes to api file
