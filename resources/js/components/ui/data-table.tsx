@@ -52,7 +52,6 @@ export function DataTable<TData, TValue>({
                   </TableHead>
                 )
               })}
-            <TableHead></TableHead>
             </TableRow>
           ))}
         </TableHeader>
@@ -68,9 +67,6 @@ export function DataTable<TData, TValue>({
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
                 ))}
-              <TableCell className="flex justify-end pr-4">
-                <Button onClick={() => deleteCost(row.getValue('id'))} className="bg-sidebar hover:bg-destructive/90 transition duration-500" variant={"destructive"} size={"icon"}><TrashIcon/></Button>
-              </TableCell>
               </TableRow>
             ))
           ) : (

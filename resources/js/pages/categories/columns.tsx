@@ -1,6 +1,11 @@
 "use client"
 
+import { Button } from "@/components/ui/button"
+import { TableCell } from "@/components/ui/table"
+import { deleteCategory } from "@/utils/category-actions"
+import { deleteCost } from "@/utils/cost-actions"
 import { ColumnDef } from "@tanstack/react-table"
+import { TrashIcon } from "lucide-react"
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -34,8 +39,12 @@ export const columns: ColumnDef<Category>[] = [
   },
   {
       accessorKey: "id",
-      header: () => <div hidden></div>,
-      cell: () => <div hidden></div>,
+      header: () => <div className="text-right">Delete</div>,
+      cell: ({ row }) => {
+          return  <div className="flex justify-end">
+            <Button onClick={() => deleteCategory(row.getValue('id'))} className="bg-sidebar hover:bg-destructive/90 transition duration-500" variant={"destructive"} size={"icon"}><TrashIcon/></Button>
+          </div>
+      }
   },
 ]
 

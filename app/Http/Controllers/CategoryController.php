@@ -32,6 +32,13 @@ class CategoryController extends Controller
         return response()->json($validated, 201);
     }
 
+    public function destroy(String $id)
+    {
+        $category = Category::find($id);
+
+        $category->delete();
+    }
+
     public function categoryNames()
     {
         $categoryNames = Category::all();

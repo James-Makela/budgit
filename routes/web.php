@@ -25,6 +25,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/categories', [CategoryController::class, 'index'])->name('categories');
     Route::post('/api/categories', [CategoryController::class, 'store']);
+    Route::delete('/categories/{id}', [CategoryController::class, 'destroy']);
 });
 
 // TODO: Move api routes to api file
