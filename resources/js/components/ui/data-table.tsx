@@ -4,6 +4,7 @@ import * as React from "react";
 
 import {
   ColumnDef,
+  RowSelectionState,
   SortingState,
   flexRender,
   getCoreRowModel,
@@ -23,27 +24,36 @@ import {
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
+  rowSelection?: RowSelectionState
+  setRowSelection?: React.Dispatch<React.SetStateAction<RowSelectionState>>
+  selectable?: boolean
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
+  rowSelection,
+  setRowSelection,
+  selectable = false,
 }: DataTableProps<TData, TValue>) {
-  const [sorting, setSorting] = React.useState<SortingState>([])
+  const [sorting, setSorting] = React.useState<SortingState>([]);
 
   const table = useReactTable({
     data,
     columns,
+    enableMultiRowSelection: false,
     getCoreRowModel: getCoreRowModel(),
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
     state: {
       sorting,
+      rowSelection: selectable ? rowSelection : undefined,
     },
+    onRowSelectionChange: selectable ? setRowSelection : undefined,
   })
 
   return (
-    <div className="rounded-md border">
+    <div className="rounded-md">
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
@@ -68,7 +78,8 @@ export function DataTable<TData, TValue>({
             table.getRowModel().rows.map((row) => (
               <TableRow
                 key={row.id}
-                data-state={row.getIsSelected() && "selected"}
+                data-state={selectable && row.getIsSelected() ? "selected" : undefined}
+                onClick={row.getToggleSelectedHandler()}
               >
                 {row.getVisibleCells().map((cell) => (
                   <TableCell key={cell.id}>
