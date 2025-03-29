@@ -30,6 +30,14 @@ class Cost extends Model
         );
     }
 
+    public function category() {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function frequency() {
+        return $this->belongsTo(Frequency::class);
+    }
+
     // Calculate the yearly cost based on cost frequency
     protected function calculateYearlyCost() {
         if (!$this->frequency || $this->frequency->days == 0)
@@ -39,14 +47,6 @@ class Cost extends Model
         $yearly_cents = $this->amount_cents / $this->frequency->days * 365;
         $yearly_dollars = $yearly_cents / 100;
         return $yearly_dollars;
-    }
-
-    public function category() {
-        return $this->belongsTo(Category::class);
-    }
-
-    public function frequency() {
-        return $this->belongsTo(Frequency::class);
     }
 }
 
