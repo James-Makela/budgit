@@ -1,9 +1,8 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { TableCell } from "@/components/ui/table"
+// import { TableCell } from "@/components/ui/table"
 import { deleteCategory } from "@/utils/category-actions"
-import { deleteCost } from "@/utils/cost-actions"
 import { ColumnDef } from "@tanstack/react-table"
 import { TrashIcon } from "lucide-react"
 
@@ -39,9 +38,9 @@ export const columns: ColumnDef<Category>[] = [
   },
   {
       accessorKey: "id",
-      header: () => <div className="text-right">Delete</div>,
+      header: () => <div className="text-right"></div>,
       cell: ({ row }) => {
-          return  <div className="flex justify-end">
+          return  <div className="flex justify-end mx-8">
             <Button onClick={() => deleteCategory(row.getValue('id'))} className="bg-sidebar hover:bg-destructive/90 transition duration-500" variant={"destructive"} size={"icon"}><TrashIcon/></Button>
           </div>
       }
