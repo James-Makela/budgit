@@ -4,7 +4,7 @@ import { NavUser } from '@/components/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { Banknote, BookOpen, Folder, Group, LayoutGrid } from 'lucide-react';
+import { Banknote, BanknoteIcon, BookOpen, DollarSign, Folder, ForkKnifeCrossed, Group, LaughIcon, LayoutGrid, ListIcon } from 'lucide-react';
 import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
@@ -12,6 +12,11 @@ const mainNavItems: NavItem[] = [
         title: 'Dashboard',
         url: '/dashboard',
         icon: LayoutGrid,
+    },
+    {
+        title: 'Income',
+        url: '/dashboard', // placeholder
+        icon: DollarSign,
     },
     {
         title: 'Costs',
@@ -22,6 +27,21 @@ const mainNavItems: NavItem[] = [
         title: 'Categories',
         url: '/categories',
         icon: Group,
+    },
+    {
+        title: 'Spending',
+        url: '/dashboard', // placeholder
+        icon: LaughIcon,
+    },
+    {
+        title: 'Food',
+        url: '/dashboard', // placeholder
+        icon: ForkKnifeCrossed,
+    },
+    {
+        title: 'All Transactions',
+        url: '/dashboard', // placeholder
+        icon: ListIcon,
     },
 ];
 
