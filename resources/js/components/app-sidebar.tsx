@@ -4,7 +4,7 @@ import { NavUser } from '@/components/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { Banknote, BanknoteIcon, BookOpen, DollarSign, Folder, ForkKnifeCrossed, Group, LaughIcon, LayoutGrid, ListIcon } from 'lucide-react';
+import { Banknote, BookOpen, DollarSign, Folder, ForkKnifeCrossed, Group, LaughIcon, LayoutGrid, ListIcon } from 'lucide-react';
 import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
@@ -15,7 +15,7 @@ const mainNavItems: NavItem[] = [
     },
     {
         title: 'Income',
-        url: '/dashboard', // placeholder
+        url: '/income',
         icon: DollarSign,
     },
     {

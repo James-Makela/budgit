@@ -12,9 +12,9 @@ import { TrashIcon } from "lucide-react"
 export type Cost = {
   id: string
   name: string
-  amount: string
-  yearly_cost: string
-  amount_per_budget: string
+  amount: number
+  yearly_cost: number
+  amount_per_budget: number
   category: string
   category_color: string
   frequency: string

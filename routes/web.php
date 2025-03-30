@@ -4,6 +4,7 @@ use App\Http\Controllers\CostController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FrequencyController;
+use App\Http\Controllers\IncomeController;
 use App\Models\Cost;
 use App\Models\Frequency;
 use Illuminate\Support\Facades\Route;
@@ -18,6 +19,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/income', [IncomeController::class, 'index'])->name('income');
+    Route::post('api/income', [IncomeController::class, 'store']);
+
     Route::get('/costs', [CostController::class, 'index'])->name('costs');
     Route::post('/api/costs', [CostController::class, 'store']);
     Route::delete('/costs/{id}', [CostController::class, 'destroy']);

@@ -14,6 +14,10 @@ return new class extends Migration
         Schema::create('incomes', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->string('source');
+            $table->string('person');
+            $table->integer('income_cents');
+            $table->foreignId('frequency_id')->constrained();
         });
     }
 

@@ -10,5 +10,6 @@ class Frequency extends Model
 
     public function frequencies() {
         return $this->hasMany(Cost::class);
+        return $this->hasMany(Income::class);
     }
 }
