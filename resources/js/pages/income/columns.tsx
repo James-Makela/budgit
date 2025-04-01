@@ -1,6 +1,9 @@
 "use client"
 
+import { Button } from "@/components/ui/button"
+import { deleteIncome } from "@/utils/income-actions"
 import { ColumnDef } from "@tanstack/react-table"
+import { TrashIcon } from "lucide-react"
 
 export type Income = {
     id: string
@@ -39,4 +42,13 @@ export const columns: ColumnDef<Income>[] = [
             return <div className="text-right">{formatted}</div>
         },
     },
+    {
+        accessorKey: "id",
+        header: () => <div hidden></div>,
+        cell: ({ row }) => {
+            return <div className="flex justify-end ml-8 mr-0">
+                <Button onClick={() => deleteIncome(row.getValue('id'))} className="bg-sidebar hover:bg-destructive/90 transition duration-500" variant={"destructive"} size={"icon"}><TrashIcon/></Button>
+            </div>
+        }
+    }
 ]

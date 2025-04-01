@@ -45,7 +45,7 @@ export function CostForm() {
         // Do something with the form values
         // This will be typesafe and validated
         console.log(values);
-        axios.post("/api/costs", values)
+        axios.post("/costs", values)
             .then((response) => {
                 console.log("Cost saved:", response.data);
                 router.visit("costs")

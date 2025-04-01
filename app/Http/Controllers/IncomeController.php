@@ -33,4 +33,11 @@ class IncomeController extends Controller
 
         return response()->json($validated);
     }
+
+    public function destroy(String $id)
+    {
+        $income = Income::find($id);
+
+        $income->delete();
+    }
 }

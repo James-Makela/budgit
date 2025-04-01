@@ -15,6 +15,7 @@ class IncomeResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            'id' => $this->id,
             'source' => $this->source,
             'person' => $this->person,
             'income_cents' => $this->income_cents / 100,
