@@ -1,5 +1,6 @@
-import { type BreadcrumbItem } from '@/types';
-import { type Income, columns } from './columns';
+import { useState } from 'react';
+import { Income, type BreadcrumbItem } from '@/types';
+import { columns } from './columns';
 import { DataTable } from '@/components/ui/data-table';
 import AppLayout from '@/layouts/app-layout';
 import { Card } from '@/components/ui/card';
@@ -16,18 +17,24 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-export default function Income({ income }: { income: Income[] }) {
+export default function Incomes({ income }: { income: Income[] }) {
+    const [isPopoverOpen, setPopoverOpen] = useState(false);
+
+    const handlePopoverStateChange = (open: boolean) => {
+        setPopoverOpen(open); // Update state when the popover opens or closes
+    };
+
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
         <script> Console.log(income); </script>
             <Card className='p-4 m-4 z-50'>
                 <div>Here are your income details.</div>
-                <Popover>
+                <Popover open={isPopoverOpen} onOpenChange={handlePopoverStateChange}>
                     <PopoverTrigger asChild>
                         <Button>Add Income</Button>
                     </PopoverTrigger>
                     <PopoverContent className='w-100 p-4 m-4'>
-                        <IncomeForm />
+                        <IncomeForm closePopover={() => setPopoverOpen(false)}/>
                     </PopoverContent>
                 </Popover>
             </Card>

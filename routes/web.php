@@ -18,7 +18,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/income', [IncomeController::class, 'index'])->name('income');
-    Route::post('api/income', [IncomeController::class, 'store']);
+    Route::post('/income', [IncomeController::class, 'store']);
     Route::delete('/income/{id}', [IncomeController::class, 'destroy']);
 
     Route::get('/costs', [CostController::class, 'index'])->name('costs');

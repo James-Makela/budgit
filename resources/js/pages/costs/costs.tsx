@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { type Cost, columns } from "./columns";
+import { columns } from "./columns";
 import { DataTable } from '@/components/ui/data-table';
 import AppLayout from '@/layouts/app-layout';
 import { Card } from '@/components/ui/card';
-import { type BreadcrumbItem } from '@/types';
+import { Cost, type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/react';
 import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"

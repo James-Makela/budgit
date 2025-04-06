@@ -4,14 +4,7 @@ import { Button } from "@/components/ui/button"
 import { deleteIncome } from "@/utils/income-actions"
 import { ColumnDef } from "@tanstack/react-table"
 import { TrashIcon } from "lucide-react"
-
-export type Income = {
-    id: string
-    source: string
-    person: string
-    income_cents: number
-    frequency: string
-}
+import { Income } from "@/types"
 
 export const columns: ColumnDef<Income>[] = [
     {

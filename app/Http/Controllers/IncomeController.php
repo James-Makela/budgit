@@ -13,14 +13,12 @@ class IncomeController extends Controller
 {
     public function index(): Response
     {
-        $income = IncomeResource::collection(Income::with('frequency')->get())->toArray(request());
-
         return Inertia::render('income/income', [
-            'income' => $income
+            'income' => $this->retrieveIncomes(),
         ]);
     }
 
-    public function store(Request $request): JsonResponse
+    public function store(Request $request): Response
     {
         $validated = $request->validate([
             'source' => 'required|string|max:50',
@@ -31,7 +29,9 @@ class IncomeController extends Controller
 
         Income::create($validated);
 
-        return response()->json($validated);
+        return Inertia::render('income/income', [
+            'income' => $this->retrieveIncomes(),
+        ]);
     }
 
     public function destroy(String $id)
@@ -39,5 +39,10 @@ class IncomeController extends Controller
         $income = Income::find($id);
 
         $income->delete();
+    }
+
+    protected function retrieveIncomes()
+    {
+        return IncomeResource::collection(Income::with('frequency')->get())->toArray(request());
     }
 }

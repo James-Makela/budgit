@@ -53,3 +53,12 @@ export type Cost = {
     category_color: string
     frequency: string
 }
+
+export type Income = {
+    id: string
+    source: string
+    person: string
+    income_cents: number
+    frequency: string
+}
+
