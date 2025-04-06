@@ -46,7 +46,7 @@ export default function Categories({ categories }: { categories: Category[] }) {
             </Card>
             <Head title="Categories" />
             <div className="flex h-full">
-                <div className="flex h-full w-1/2 flex-1 flec-col gap-4 rounded-xl p-4">
+                <div className="flex h-full w-1/2 flex-1 flec-col gap-4 rounded-xl p-4 pr-2">
                     <div className="border-sidebar-border/70 dark:border-sidebar-border relative min-h-[100vh] flex-1 overflow-hidden rounded-xl border md:min-h-min">
                         <DataTable
                             columns={columns}
@@ -57,7 +57,7 @@ export default function Categories({ categories }: { categories: Category[] }) {
                         </DataTable>
                     </div>
                 </div>
-                <div className="flex h-full w-1/2 flex-1 flec-col gap-4 rounded-xl p-4">
+                <div className="flex h-full w-1/2 flex-1 flec-col gap-4 rounded-xl p-4 pl-2">
                         <Card className="h-full w-full p-8">
                             <h2 className="text-xl font-bold">Selected Category</h2>
                             <p>ID: {selectedCategory?.id}</p>
