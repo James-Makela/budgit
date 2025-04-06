@@ -12,11 +12,8 @@ class CostController extends Controller
 {
     public function index(): Response
     {
-        $costs = $this->retrieveCosts();
-        // $costs->load('category', 'frequency');
-
         return Inertia::render('costs/costs', [
-            'costs' => $costs
+            'costs' => $this->retrieveCosts(),
         ]);
     }
 
