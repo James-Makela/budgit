@@ -1,4 +1,4 @@
-import { type Category, columns } from "./columns";
+import { columns } from "./columns";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { DataTable } from "@/components/ui/data-table";
@@ -8,8 +8,8 @@ import { type BreadcrumbItem } from "@/types"
 import { Head } from "@inertiajs/react";
 import { CategoryForm } from "@/components/forms/category-form";
 import { RowSelectionState } from "@tanstack/react-table";
-import React from "react";
-import { set } from "react-hook-form";
+import React, { useState } from "react";
+import { Category } from "@/types";
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -20,6 +20,11 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 export default function Categories({ categories }: { categories: Category[] }) {
     const [rowSelection, setRowSelection] = React.useState<RowSelectionState>({});
+    const [isPopoverOpen, setPopoverOpen] = useState(false);
+
+    const handlePopoverStateChange = (open: boolean) => {
+        setPopoverOpen(open);
+    };
 
     // To get the selected category ID
     const selectedRowId = Object.keys(rowSelection);
@@ -30,12 +35,12 @@ export default function Categories({ categories }: { categories: Category[] }) {
         <script> console.log(categories); </script>
             <Card className="p-4 m-4 z-50">
                 <div>Here is where you can add and edit your categories.</div>
-                <Popover>
+                <Popover open={isPopoverOpen} onOpenChange={handlePopoverStateChange}>
                     <PopoverTrigger asChild>
                         <Button>Add Category</Button>
                     </PopoverTrigger>
                     <PopoverContent className="w-100 p-4 m-4">
-                            <CategoryForm />
+                            <CategoryForm closePopover={() => setPopoverOpen(false)} />
                     </PopoverContent>
                 </Popover>
             </Card>

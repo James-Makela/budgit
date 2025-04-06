@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -12,14 +11,12 @@ class CategoryController extends Controller
 {
     public function index(): Response
     {
-        $categories = Category::all();
-
         return Inertia::render('categories/categories', [
-            'categories' => $categories
+            'categories' => $this->retrieveCategories(),
         ]);
     }
 
-    public function store(Request $request): JsonResponse
+    public function store(Request $request): Response
     {
         $validated = $request->validate([
             'name' => 'required|string|max:150',
@@ -29,7 +26,9 @@ class CategoryController extends Controller
 
         Category::create($validated);
 
-        return response()->json($validated, 201);
+        return Inertia::render('categories/categories', [
+            'categories' => $this->retrieveCategories(),
+        ]);
     }
 
     public function destroy(String $id)
@@ -43,5 +42,10 @@ class CategoryController extends Controller
     {
         $categoryNames = Category::all();
         return response()->json($categoryNames);
+    }
+
+    protected function retrieveCategories()
+    {
+        return Category::all();
     }
 }

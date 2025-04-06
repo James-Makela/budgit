@@ -26,7 +26,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/costs/{id}', [CostController::class, 'destroy']);
 
     Route::get('/categories', [CategoryController::class, 'index'])->name('categories');
-    Route::post('/api/categories', [CategoryController::class, 'store']);
+    Route::post('/categories', [CategoryController::class, 'store']);
     Route::delete('/categories/{id}', [CategoryController::class, 'destroy']);
 });
 

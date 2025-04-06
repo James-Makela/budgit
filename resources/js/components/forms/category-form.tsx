@@ -1,10 +1,5 @@
 "use client"
 
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
-import axios from "axios"
-
 import { Button } from "@/components/ui/button"
 import {
     Form,
@@ -16,45 +11,24 @@ import {
     FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { router } from "@inertiajs/react"
+import { useCategoryForm } from "@/hooks/use-category-form"
+import { ClosePopoverProp } from "@/types"
 
-const formSchema = z.object({
-    name: z.string().min(2, {
-        message: "Category name must be at least 2 characters.",
-    }).max(50, {
-        message: "Category name must not exceed 50 characters.",
-    }),
-    color: z.string().min(7).max(7),
-    icon: z.string().min(2).max(50),
-})
+export function CategoryForm({ closePopover }: ClosePopoverProp) {
+    const { form, onSubmit, loading } = useCategoryForm();
 
-export function CategoryForm() {
-    const form = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema),
-        defaultValues: {
-            name: "",
-        },
-        mode: "onTouched",
-    })
-
-    function onSubmit(values: z.infer<typeof formSchema>) {
-        // Do something with the form values
-        // This will be typesafe and validated
-        console.log(values);
-        axios.post("/api/categories", values)
-            .then((response) => {
-                console.log("Category saved:", response.data);
-                router.visit("categories")
-            })
-            .catch((error) => {
-                console.error("Error saving cost:", error.response?.data);
-                alert("Failed to save cost.")
-            });
-    }
+    const handleFormSubmit = async (data: any) => {
+        try {
+            await onSubmit(data);
+            closePopover();
+        } catch (error) {
+            console.error('Form submission failed:', error);
+        }
+    };
 
     return (
         <Form { ...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            <form onSubmit={form.handleSubmit(handleFormSubmit)} className="space-y-8">
                 <FormField
                     control={form.control}
                     name="name"
@@ -103,7 +77,7 @@ export function CategoryForm() {
                         </FormItem>
                     )}
                 />
-                <Button type="submit">Submit</Button>
+                <Button type="submit" disabled={loading}>Submit</Button>
             </form>
         </Form>
     )

@@ -5,15 +5,7 @@ import { Button } from "@/components/ui/button"
 import { deleteCategory } from "@/utils/category-actions"
 import { ColumnDef } from "@tanstack/react-table"
 import { TrashIcon } from "lucide-react"
-
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
-export type Category = {
-  id: string
-  name: string
-  color: string
-  icon: string
-}
+import { Category } from "@/types"
 
 export const columns: ColumnDef<Category>[] = [
   {
