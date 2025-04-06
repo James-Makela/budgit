@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\CostResource;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Cost;
@@ -14,7 +12,7 @@ class CostController extends Controller
 {
     public function index(): Response
     {
-        $costs = CostResource::collection(Cost::with('category', 'frequency')->get())->toArray(request());
+        $costs = $this->retrieveCosts();
         // $costs->load('category', 'frequency');
 
         return Inertia::render('costs/costs', [
@@ -22,7 +20,7 @@ class CostController extends Controller
         ]);
     }
 
-    public function store(Request $request): JsonResponse
+    public function store(Request $request): Response
     {
         $validated = $request->validate([
             'name' => 'required|string|max:150',
@@ -33,7 +31,9 @@ class CostController extends Controller
 
         Cost::create($validated);
 
-        return response()->json($validated, 201);
+        return Inertia::render('costs/costs', [
+           'costs' => $this->retrieveCosts(),
+        ]);
     }
 
     public function destroy(String $id)
@@ -41,5 +41,10 @@ class CostController extends Controller
         $cost = Cost::find($id);
 
         $cost->delete();
+    }
+
+    protected function retrieveCosts()
+    {
+        return CostResource::collection(Cost::with('category', 'frequency')->get())->toArray(request());
     }
 }

@@ -6,8 +6,6 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-use function Pest\Laravel\get;
-
 class Cost extends Model
 {
     protected $fillable = ['name', 'amount_cents', 'frequency_id', 'first_payment', 'category_id'];

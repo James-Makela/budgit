@@ -1,4 +1,15 @@
+import { Cost } from "@/types";
 import { router } from "@inertiajs/react"
+
+async function addCost(data: Cost) {
+    return new Promise((resolve, reject) => {
+        router.post('/costs', data, {
+            preserveScroll: true,
+            onSuccess: () => resolve(true),
+            onError: (errors) => reject(errors),
+        });
+    });
+}
 
 function deleteCost(id: string) {
     router.delete(`/costs/${id}`, {
@@ -9,4 +20,5 @@ function deleteCost(id: string) {
 
 export {
     deleteCost,
+    addCost,
 }

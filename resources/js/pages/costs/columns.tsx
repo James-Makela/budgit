@@ -6,19 +6,7 @@ import { Button } from "@/components/ui/button"
 import { deleteCost } from "@/utils/cost-actions"
 import { ArrowUpDown } from "lucide-react"
 import { TrashIcon } from "lucide-react"
-
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
-export type Cost = {
-  id: string
-  name: string
-  amount: number
-  yearly_cost: number
-  amount_per_budget: number
-  category: string
-  category_color: string
-  frequency: string
-}
+import { Cost } from "@/types"
 
 export const columns: ColumnDef<Cost>[] = [
   {

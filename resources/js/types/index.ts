@@ -38,3 +38,18 @@ export interface User {
     updated_at: string;
     [key: string]: unknown; // This allows for additional properties...
 }
+
+export interface ClosePopoverProp {
+    closePopover: () => void;
+}
+
+export type Cost = {
+    id: string
+    name: string
+    amount: number
+    yearly_cost: number
+    amount_per_budget: number
+    category: string
+    category_color: string
+    frequency: string
+}

@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import { type Cost, columns } from "./columns";
 import { DataTable } from '@/components/ui/data-table';
 import AppLayout from '@/layouts/app-layout';
@@ -17,17 +18,23 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 export default function Costs({ costs }: { costs: Cost[] }) {
+  const [isPopoverOpen, setPopoverOpen] = useState(false);
+
+  const handlePopoverStateChange = (open: boolean) => {
+    setPopoverOpen(open);  // Update state when the popover opens or closes
+  };
+
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
         <script> console.log(costs); </script>
             <Card className="p-4 m-4 z-50">
                 <div>Here are all your costs over a year</div>
-                <Popover>
+                <Popover open={isPopoverOpen} onOpenChange={handlePopoverStateChange}>
                     <PopoverTrigger asChild>
                         <Button>Add Cost</Button>
                     </PopoverTrigger>
                     <PopoverContent className="w-100 p-4 m-4">
-                        <CostForm />
+                        <CostForm closePopover={() => setPopoverOpen(false)} />
                     </PopoverContent>
                 </Popover>
             </Card>
