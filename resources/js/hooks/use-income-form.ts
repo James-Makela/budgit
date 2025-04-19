@@ -2,37 +2,40 @@ import { useForm } from "react-hook-form";
 import { addIncome } from "@/utils/income-actions";
 import { useState } from "react";
 import { Income } from "@/types";
+import { z } from "zod";
+import { incomeSchema } from "@/lib/validations/income-schema";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 export function useIncomeForm() {
-    const form = useForm({
-        defaultValues: {
+    type IncomeFormData = z.infer<typeof incomeSchema>;
 
+    const form = useForm<IncomeFormData>({
+        resolver: zodResolver(incomeSchema),
+        defaultValues: {
+            source: "",
         },
     });
 
     const [loading, setLoading] = useState(false);
 
-    const onSubmit = async (data: Income) => {
+    const onSubmit = (data: Income) => {
         setLoading(true);
 
-        try {
-            await addIncome(data);
-            form.reset();
-        } catch (error: any) {
-            if (error.response?.status === 422) {
-                const errors = error.response.data.errors;
-                Object.keys(errors).forEach((field) => {
-                    form.setError(field as any, {
-                        type: "server",
-                        message: errors[field][0],
+        addIncome(data, {
+            onSuccess: () => {
+                form.reset();
+                onSuccess?.();
+            },
+            onError: (errors) => {
+                Object.entries(errors).forEach(([field, messages]) => {
+                    form.setError(field as keyof IncomeFormData, {
+                        type: 'server',
+                        message: (messages as string),
                     });
                 });
-            } else {
-                console.error("Unexpeted error:", error);
-            }
-        } finally {
-            setLoading(false);
-        }
+            },
+            onFinish: () => setLoading(false),
+        });
     };
 
     return { form, onSubmit, loading };

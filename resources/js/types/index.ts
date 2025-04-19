@@ -59,16 +59,16 @@ export type Income = {
     source: string
     person: string
     income_cents: number
-    frequency: string
+    frequency_id: string
 }
 
 export type Category = {
-  id: string
-  name: string
-  color: string
-  icon: string
+    id: string
+    name: string
+    color: string
+    icon: string
 }
 
 export type FormErrorResponse = {
-  [key: string]: string[]; // Field name as key, array of error messages as values
+    [key: string]: string[]; // Field name as key, array of error messages as values
 };

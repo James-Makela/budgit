@@ -1,14 +1,8 @@
 import { Income } from "@/types";
 import { router } from "@inertiajs/react"
 
-async function addIncome(data: Income) {
-    return new Promise((resolve, reject) => {
-        router.post('income', data, {
-            preserveScroll: true,
-            onSuccess: () => resolve(true),
-            onError: (errors) => reject(errors),
-        });
-    });
+function addIncome(data: Income, options?: Parameters<typeof router.post>[2]) {
+    router.post('/income', data, options);
 }
 
 function deleteIncome(id: string) {
