@@ -1,14 +1,8 @@
 import { Category } from "@/types";
 import { router } from "@inertiajs/react"
 
-async function addCategory(data: Category) {
-    return new Promise((resolve, reject) => {
-        router.post('/categories', data, {
-            preserveScroll: true,
-            onSuccess: () => resolve(true),
-            onError: (errors) => reject(errors),
-        });
-    });
+async function addCategory(data: Category, options?: Parameters<typeof router.post>[2]) {
+    router.post('/categories', data, options);
 }
 
 function deleteCategory(id: string) {

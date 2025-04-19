@@ -2,38 +2,40 @@ import { useForm } from "react-hook-form";
 import { addCategory } from "@/utils/category-actions";
 import { useState } from "react";
 import { Category } from "@/types";
+import { z } from "zod";
+import { categorySchema } from "@/lib/validations/category-schema";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 export function useCategoryForm() {
+    type CategoryFormData = z.infer<typeof categorySchema>;
+
     const form = useForm({
+        resolver: zodResolver(categorySchema),
         defaultValues: {
-            // TODO: default values here
             name: "",
         },
     });
 
     const [loading, setLoading] = useState(false);
 
-    const onSubmit = async (data: Category) => {
+    const onSubmit = (data: Category) => {
         setLoading(true);
 
-        try {
-            await addCategory(data);
-            form.reset();
-        } catch (error: any) {
-            if (error.response?.status === 422) {
-                const errors = error.response.data.errors;
-                Object.keys(errors).forEach((field) => {
-                    form.setError(field as any, {
-                        type: "server",
-                        message: errors[field][0],
+        addCategory(data, {
+            onSuccess: () => {
+                form.reset();
+                onSuccess?.();
+            },
+            onError: (errors) => {
+                Object.entries(errors).forEach(([field, messages]) => {
+                    form.setError(field as keyof CategoryFormData, {
+                        type: 'server',
+                        message: (messages as string),
                     });
                 });
-            } else {
-                console.error("Unexpected error:", error);
-            }
-        } finally {
-            setLoading(false);
-        }
+            },
+            onFinish: () => setLoading(false),
+        });
     };
 
     return { form, onSubmit, loading };

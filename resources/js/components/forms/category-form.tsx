@@ -12,14 +12,14 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { useCategoryForm } from "@/hooks/use-category-form"
-import { ClosePopoverProp } from "@/types"
+import { Category, ClosePopoverProp } from "@/types"
 
 export function CategoryForm({ closePopover }: ClosePopoverProp) {
     const { form, onSubmit, loading } = useCategoryForm();
 
-    const handleFormSubmit = async (data: any) => {
+    const handleFormSubmit = (data: Category) => {
         try {
-            await onSubmit(data);
+            onSubmit(data);
             closePopover();
         } catch (error) {
             console.error('Form submission failed:', error);
