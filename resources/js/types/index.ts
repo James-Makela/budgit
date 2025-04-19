@@ -46,12 +46,12 @@ export interface ClosePopoverProp {
 export type Cost = {
     id: string
     name: string
-    amount: number
+    amount_cents: number
     yearly_cost: number
     amount_per_budget: number
-    category: string
+    category_id: number
     category_color: string
-    frequency: string
+    frequency_id: number
 }
 
 export type Income = {
@@ -69,3 +69,6 @@ export type Category = {
   icon: string
 }
 
+export type FormErrorResponse = {
+  [key: string]: string[]; // Field name as key, array of error messages as values
+};
