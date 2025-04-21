@@ -40,7 +40,13 @@ export const columns: ColumnDef<Income>[] = [
         header: () => <div hidden></div>,
         cell: ({ row }) => {
             return <div className="flex justify-end ml-8 mr-0">
-                <Button onClick={() => deleteIncome(row.getValue('id'))} className="bg-sidebar hover:bg-destructive/90 transition duration-500" variant={"destructive"} size={"icon"}><TrashIcon/></Button>
+                <Button
+                    onClick={() => deleteIncome(row.getValue('id'))}
+                    variant={"destructiveHidden"}
+                    size={"icon"}
+                >
+                    <TrashIcon/>
+                </Button>
             </div>
         }
     }
