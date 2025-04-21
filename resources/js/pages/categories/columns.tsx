@@ -26,7 +26,7 @@ export const columns: ColumnDef<Category>[] = [
             return <div className="flex justify-end">
                 <div
                     className="w-5 h-5 rounded-full text-right mx-8"
-                    style={{ backgroundColor: row.getValue("color") }}
+                    style={{ backgroundColor: `oklch(55% 0.35 ${row.getValue("color")})` }}
                 >
             </div>
             </div>

@@ -20,7 +20,7 @@ class CategoryController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:150',
-            'color' => 'string',
+            'color' => 'integer',
             'icon' => 'integer',
         ]);
 

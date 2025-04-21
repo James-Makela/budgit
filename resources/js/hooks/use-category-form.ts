@@ -20,6 +20,8 @@ export function useCategoryForm(onSuccess?: () => void) {
 
     const onSubmit = (data: Category) => {
         setLoading(true);
+        console.log(data);
+
 
         addCategory(data, {
             onSuccess: () => {

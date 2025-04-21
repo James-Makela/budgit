@@ -70,7 +70,7 @@ export const columns: ColumnDef<Cost>[] = [
                 <Badge
                     variant="outline"
                     className="justify-center font-bold font-"
-                    style={{ backgroundColor: category_color }}
+                    style={{ backgroundColor: `oklch(55% 0.35 ${category_color})` }}
                 >
                     {row.getValue("category")}
                 </Badge>

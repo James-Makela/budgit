@@ -15,8 +15,7 @@ export const amountSchema = z
   .min(0.01, "Amount must be greater than zero");
 
 export const colorSchema = z
-    .string()
-    .refine((val) => val.startsWith('#'), {
-        message: "Color must start with #",
-    });
+    .number()
+    .min(0)
+    .max(360);
 

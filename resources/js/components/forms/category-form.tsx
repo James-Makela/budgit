@@ -13,6 +13,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { useCategoryForm } from "@/hooks/use-category-form"
 import { Category, ClosePopoverProp } from "@/types"
+import { Slider } from "@/components/ui/slider"
 
 export function CategoryForm({ closePopover }: ClosePopoverProp) {
     const { form, onSubmit, loading } = useCategoryForm();
@@ -52,7 +53,15 @@ export function CategoryForm({ closePopover }: ClosePopoverProp) {
                         <FormItem>
                             <FormLabel>Colour</FormLabel>
                             <FormControl>
-                                <Input placeholder="Colour" {...field} />
+                                <div
+                                  className="flex"
+                                >
+                                    <Slider defaultValue={[33]} max={360} step={1} value={[field.value || 0]} onValueChange={(val) => field.onChange(val[0])} />
+                                <div
+                                  className="h-8 w-8 mx-2 rounded-md border shadow"
+                                  style={{ backgroundColor: `oklch(55% 0.35 ${field.value})` }}
+                                />
+                                </div>
                             </FormControl>
                             <FormDescription>
                                 A colour for your category.
