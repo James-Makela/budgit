@@ -26,7 +26,6 @@ export default function Costs({ costs }: { costs: Cost[] }) {
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-        <script> console.log(costs); </script>
             <Card className="p-4 m-4 z-50">
                 <div>Here are all your costs over a year</div>
                 <Popover open={isPopoverOpen} onOpenChange={handlePopoverStateChange}>

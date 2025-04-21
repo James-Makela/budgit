@@ -56,7 +56,7 @@ export function CategoryForm({ closePopover }: ClosePopoverProp) {
                                 <div
                                   className="flex"
                                 >
-                                    <Slider defaultValue={[33]} max={360} step={1} value={[field.value || 0]} onValueChange={(val) => field.onChange(val[0])} />
+                                    <Slider defaultValue={[33]} max={360} step={1} onValueChange={(val) => field.onChange(val[0])} />
                                 <div
                                   className="h-8 w-8 mx-2 rounded-md border shadow"
                                   style={{ backgroundColor: `oklch(55% 0.35 ${field.value})` }}

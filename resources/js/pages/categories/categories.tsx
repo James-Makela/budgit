@@ -58,10 +58,16 @@ export default function Categories({ categories }: { categories: Category[] }) {
                     </div>
                 </div>
                 <div className="flex h-full w-1/2 flex-1 flec-col gap-4 rounded-xl p-4 pl-2">
-                        <Card className="h-full w-full p-8">
-                            <h2 className="text-xl font-bold">Selected Category</h2>
-                            <p>ID: {selectedCategory?.id}</p>
-                            <p>Name: {selectedCategory?.name}</p>
+                        <Card className="h-full w-full p-0 overflow-hidden">
+                            <h2 className="text-3xl font-bold p-4 m-0"
+                                style={{ backgroundColor: `oklch(55% 0.35 ${selectedCategory?.color})`}}
+                            >
+                                { selectedCategory?.name }
+                            </h2>
+                            <div className="p-8">
+                                <p>ID: {selectedCategory?.id}</p>
+                                <p>Name: {selectedCategory?.name}</p>
+                            </div>
                         </Card>
                 </div>
             </div>
