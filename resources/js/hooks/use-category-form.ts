@@ -6,7 +6,7 @@ import { z } from "zod";
 import { categorySchema } from "@/lib/validations/category-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-export function useCategoryForm() {
+export function useCategoryForm(onSuccess?: () => void) {
     type CategoryFormData = z.infer<typeof categorySchema>;
 
     const form = useForm({

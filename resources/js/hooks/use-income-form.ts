@@ -6,7 +6,7 @@ import { z } from "zod";
 import { incomeSchema } from "@/lib/validations/income-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-export function useIncomeForm() {
+export function useIncomeForm(onSuccess?: () => void) {
     type IncomeFormData = z.infer<typeof incomeSchema>;
 
     const form = useForm<IncomeFormData>({
