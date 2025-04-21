@@ -21,7 +21,25 @@ class Income extends Model
         );
     }
 
+    public function yearlyIncome(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->calculateYearlyIncome()
+        );
+    }
+
     public function frequency() {
         return $this->belongsTo(Frequency::class);
+    }
+
+    // Calculate the yearly income based on frequency
+    protected function calculateYearlyIncome() {
+        if (!$this->frequency || $this->frequency->multiplier == 0)
+        {
+            return $this->income_cents;
+        }
+        $yearly_cents = $this->income_cents * $this->frequency->multiplier;
+        $yearly_dollars = $yearly_cents / 100;
+        return $yearly_dollars;
     }
 }

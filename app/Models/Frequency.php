@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Frequency extends Model
 {
-    protected $fillable = ['name', 'days'];
+    protected $fillable = ['name', 'multiplier'];
 
     public function frequencies() {
         return $this->hasMany(Cost::class);

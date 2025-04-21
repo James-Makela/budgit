@@ -38,11 +38,11 @@ class Cost extends Model
 
     // Calculate the yearly cost based on cost frequency
     protected function calculateYearlyCost() {
-        if (!$this->frequency || $this->frequency->days == 0)
+        if (!$this->frequency || $this->frequency->multiplier == 0)
         {
             return $this->amount_cents;
         }
-        $yearly_cents = $this->amount_cents / $this->frequency->days * 365;
+        $yearly_cents = $this->amount_cents * $this->frequency->multiplier;
         $yearly_dollars = $yearly_cents / 100;
         return $yearly_dollars;
     }

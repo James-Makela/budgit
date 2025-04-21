@@ -89,6 +89,13 @@ export const columns: ColumnDef<Cost>[] = [
                 >
                     <TrashIcon/>
                 </Button>
+                <Button
+                    onClick={() => deleteCost(row.getValue('id'))}
+                    variant={"ghost"}
+                    size={"icon"}
+                >
+                    <PencilIcon/>
+                </Button>
             </div>
         }
     },

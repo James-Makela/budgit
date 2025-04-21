@@ -16,19 +16,19 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string('name');
-            $table->integer('days');
+            $table->integer('multiplier');
         });
 
         DB::table('frequencies')->insert([
-            ['name' => 'Daily', 'days' => 1],
-            ['name' => 'Weekly', 'days' => 7],
-            ['name' => 'Fortnightly', 'days' => 14],
-            ['name' => 'Monthly (28 days)', 'days' => 28],
-            ['name' => 'Monthly', 'days' => 0],
-            ['name' => 'Bi-Monthly', 'days' => 0],
-            ['name' => 'Quarterly', 'days' => 0],
-            ['name' => 'Half Yearly', 'days' => 0],
-            ['name' => 'Yearly', 'days' => 0],
+            ['name' => 'Daily', 'multiplier' => 365],
+            ['name' => 'Weekly', 'multiplier' => 52],
+            ['name' => 'Fortnightly', 'multiplier' => 26],
+            ['name' => 'Monthly (28 days)', 'multiplier' => 13],
+            ['name' => 'Monthly', 'multiplier' => 12],
+            ['name' => 'Bi-Monthly', 'multiplier' => 6],
+            ['name' => 'Quarterly', 'multiplier' => 4],
+            ['name' => 'Half Yearly', 'multiplier' => 2],
+            ['name' => 'Yearly', 'multiplier' => 1],
         ]);
     }
 
