@@ -7,3 +7,6 @@ export const categorySchema = z.object({
     color: colorSchema,
     icon: z.string(),
 })
+
+export type CategoryFormData= z.infer<typeof categorySchema>;
+
