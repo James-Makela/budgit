@@ -6,8 +6,8 @@ import { Card } from '@/components/ui/card';
 import { Cost, type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/react';
 import { Button } from "@/components/ui/button";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { CostForm } from "@/components/forms/cost-form";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -18,24 +18,24 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 export default function Costs({ costs }: { costs: Cost[] }) {
-  const [isPopoverOpen, setPopoverOpen] = useState(false);
+    const [isDialogOpen, setDialogOpen] = useState(false);
 
-  const handlePopoverStateChange = (open: boolean) => {
-    setPopoverOpen(open);  // Update state when the popover opens or closes
-  };
+    const handleDialogStateChange = (open: boolean) => {
+        setDialogOpen(open);
+    };
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Card className="p-4 m-4 z-50">
+            <Card className="p-4 m-4 mb-0 z-50">
                 <div>Here are all your costs over a year</div>
-                <Popover open={isPopoverOpen} onOpenChange={handlePopoverStateChange}>
-                    <PopoverTrigger asChild>
+                <Dialog open={isDialogOpen} onOpenChange={handleDialogStateChange}>
+                    <DialogTrigger asChild>
                         <Button>Add Cost</Button>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-100 p-4 m-4">
-                        <CostForm closePopover={() => setPopoverOpen(false)} />
-                    </PopoverContent>
-                </Popover>
+                    </DialogTrigger>
+                    <DialogContent className="w-100 p-4 m-4">
+                        <CostForm closeDialog={() => setDialogOpen(false)} />
+                    </DialogContent>
+                </Dialog>
             </Card>
             <Head title="Costs" />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">

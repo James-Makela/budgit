@@ -1,7 +1,7 @@
-import { Category } from "@/types";
+import { CategoryFormData } from "@/lib/validations/category-schema";
 import { router } from "@inertiajs/react"
 
-async function addCategory(data: Category, options?: Parameters<typeof router.post>[2]) {
+async function addCategory(data: CategoryFormData, options?: Parameters<typeof router.post>[2]) {
     router.post('/categories', data, options);
 }
 

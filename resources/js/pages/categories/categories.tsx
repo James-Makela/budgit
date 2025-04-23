@@ -2,7 +2,7 @@ import { columns } from "./columns";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { DataTable } from "@/components/ui/data-table";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import AppLayout from "@/layouts/app-layout";
 import { type BreadcrumbItem } from "@/types"
 import { Head } from "@inertiajs/react";
@@ -20,10 +20,10 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 export default function Categories({ categories }: { categories: Category[] }) {
     const [rowSelection, setRowSelection] = React.useState<RowSelectionState>({});
-    const [isPopoverOpen, setPopoverOpen] = useState(false);
+    const [isDialogOpen, setDialogOpen] = useState(false);
 
-    const handlePopoverStateChange = (open: boolean) => {
-        setPopoverOpen(open);
+    const handleDialogStateChange = (open: boolean) => {
+        setDialogOpen(open);
     };
 
     // To get the selected category ID
@@ -35,14 +35,14 @@ export default function Categories({ categories }: { categories: Category[] }) {
         <script> console.log(categories); </script>
             <Card className="p-4 m-4 z-50">
                 <div>Here is where you can add and edit your categories.</div>
-                <Popover open={isPopoverOpen} onOpenChange={handlePopoverStateChange}>
-                    <PopoverTrigger asChild>
+                <Dialog open={isDialogOpen} onOpenChange={handleDialogStateChange}>
+                    <DialogTrigger asChild>
                         <Button>Add Category</Button>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-100 p-4 m-4">
-                            <CategoryForm closePopover={() => setPopoverOpen(false)} />
-                    </PopoverContent>
-                </Popover>
+                    </DialogTrigger>
+                    <DialogContent className="w-100 p-4 m-4">
+                            <CategoryForm closeDialog={() => setDialogOpen(false)} />
+                    </DialogContent>
+                </Dialog>
             </Card>
             <Head title="Categories" />
             <div className="flex h-full">

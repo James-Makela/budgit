@@ -12,16 +12,17 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { useCategoryForm } from "@/hooks/use-category-form"
-import { Category, ClosePopoverProp } from "@/types"
+import { CloseDialogProp } from "@/types"
 import { Slider } from "@/components/ui/slider"
+import { CategoryFormData } from "@/lib/validations/category-schema"
 
-export function CategoryForm({ closePopover }: ClosePopoverProp) {
+export function CategoryForm({ closeDialog }: CloseDialogProp) {
     const { form, onSubmit, loading } = useCategoryForm();
 
-    const handleFormSubmit = (data: Category) => {
+    const handleFormSubmit = (data: CategoryFormData) => {
         try {
             onSubmit(data);
-            closePopover();
+            closeDialog();
         } catch (error) {
             console.error('Form submission failed:', error);
         }

@@ -5,9 +5,8 @@ import { DataTable } from '@/components/ui/data-table';
 import AppLayout from '@/layouts/app-layout';
 import { Card } from '@/components/ui/card';
 import { Head } from '@inertiajs/react';
-import { Popover, PopoverTrigger } from '@radix-ui/react-popover';
+import { Dialog, DialogTrigger, DialogContent } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { PopoverContent } from '@/components/ui/popover';
 import { IncomeForm } from '@/components/forms/income-form'
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -18,10 +17,10 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 export default function Incomes({ income }: { income: Income[] }) {
-    const [isPopoverOpen, setPopoverOpen] = useState(false);
+    const [isDialogOpen, setDialogOpen] = useState(false);
 
-    const handlePopoverStateChange = (open: boolean) => {
-        setPopoverOpen(open); // Update state when the popover opens or closes
+    const handleDialogStateChange = (open: boolean) => {
+        setDialogOpen(open);
     };
 
     return (
@@ -29,14 +28,14 @@ export default function Incomes({ income }: { income: Income[] }) {
         <script> Console.log(income); </script>
             <Card className='p-4 m-4 z-50'>
                 <div>Here are your income details.</div>
-                <Popover open={isPopoverOpen} onOpenChange={handlePopoverStateChange}>
-                    <PopoverTrigger asChild>
+                <Dialog open={isDialogOpen} onOpenChange={handleDialogStateChange}>
+                    <DialogTrigger asChild>
                         <Button>Add Income</Button>
-                    </PopoverTrigger>
-                    <PopoverContent className='w-100 p-4 m-4'>
-                        <IncomeForm closePopover={() => setPopoverOpen(false)}/>
-                    </PopoverContent>
-                </Popover>
+                    </DialogTrigger>
+                    <DialogContent className='w-100 p-4 m-4'>
+                        <IncomeForm closeDialog={() => setDialogOpen(false)}/>
+                    </DialogContent>
+                </Dialog>
             </Card>
             <Head title='Income' />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">

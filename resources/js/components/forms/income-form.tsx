@@ -13,16 +13,16 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import CollectionSelect from "../collection-select"
-import { ClosePopoverProp, Income } from "@/types"
+import { CloseDialogProp, Income } from "@/types"
 import { useIncomeForm } from "@/hooks/use-income-form"
 
-export function IncomeForm({ closePopover }: ClosePopoverProp) {
+export function IncomeForm({ closeDialog }: CloseDialogProp) {
     const {form, onSubmit, loading } = useIncomeForm();
 
     const handleFormSubmit = (data: Income) => {
         try {
             onSubmit(data);
-            closePopover();
+            closeDialog();
         } catch (error) {
             console.error('Form submission failed:', error);
         }

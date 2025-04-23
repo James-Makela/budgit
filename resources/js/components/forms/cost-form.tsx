@@ -14,15 +14,15 @@ import {
 import { Input } from "@/components/ui/input"
 import CollectionSelect from "../collection-select"
 import { useCostForm } from "@/hooks/use-cost-form"
-import { ClosePopoverProp, Cost } from "@/types"
+import { CloseDialogProp, Cost } from "@/types"
 
-export function CostForm({ closePopover }: ClosePopoverProp) {
+export function CostForm({ closeDialog }: CloseDialogProp) {
     const { form, onSubmit, loading } = useCostForm();
 
     const handleFormSubmit = (data: Cost) => {
         try {
             onSubmit(data);
-            closePopover();
+            closeDialog();
         } catch (error) {
             console.error('Form submission failed:', error);
         }
