@@ -21,10 +21,10 @@ return new class extends Migration
         });
 
         DB::table('categories')->insert([
-            ['name' => 'Housing'],
-            ['name' => 'Spending'],
-            ['name' => 'Food'],
-            ['name' => 'Transport'],
+            ['name' => 'Housing', 'color' => 40],
+            ['name' => 'Spending', 'color' => 290],
+            ['name' => 'Food', 'color' => 140],
+            ['name' => 'Transport', 'color' => 240],
         ]);
     }
 
