@@ -1,14 +1,10 @@
 import { useForm } from "react-hook-form";
 import { addCost } from "@/utils/cost-actions";
 import { useState } from "react";
-import { Cost } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { costSchema } from "@/lib/validations/cost-schema";
-import { z } from "zod";
+import { CostFormData, costSchema } from "@/lib/validations/cost-schema";
 
 export function useCostForm(onSuccess?: () => void) {
-    type CostFormData = z.infer<typeof costSchema>;
-
     const form = useForm<CostFormData>({
         resolver: zodResolver(costSchema),
         defaultValues: {
@@ -18,7 +14,7 @@ export function useCostForm(onSuccess?: () => void) {
 
     const [loading, setLoading] = useState(false);
 
-    const onSubmit = (data: Cost) => {
+    const onSubmit = (data: CostFormData) => {
         console.log("Submitting cost:", data);
         setLoading(true);
 

@@ -21,3 +21,6 @@ export const costSchema = z.object({
             "First payment must be a valid date"
         ),
 });
+
+export type CostFormData = z.infer<typeof costSchema>;
+

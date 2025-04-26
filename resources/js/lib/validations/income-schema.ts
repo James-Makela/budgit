@@ -11,3 +11,5 @@ export const incomeSchema = z.object({
         invalid_type_error: "Frequency must be selected",
     }),
 })
+
+export type IncomeFormData = z.infer<typeof incomeSchema>;

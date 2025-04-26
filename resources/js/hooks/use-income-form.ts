@@ -1,14 +1,10 @@
 import { useForm } from "react-hook-form";
 import { addIncome } from "@/utils/income-actions";
 import { useState } from "react";
-import { Income } from "@/types";
-import { z } from "zod";
-import { incomeSchema } from "@/lib/validations/income-schema";
+import { IncomeFormData, incomeSchema } from "@/lib/validations/income-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 export function useIncomeForm(onSuccess?: () => void) {
-    type IncomeFormData = z.infer<typeof incomeSchema>;
-
     const form = useForm<IncomeFormData>({
         resolver: zodResolver(incomeSchema),
         defaultValues: {
@@ -18,7 +14,7 @@ export function useIncomeForm(onSuccess?: () => void) {
 
     const [loading, setLoading] = useState(false);
 
-    const onSubmit = (data: Income) => {
+    const onSubmit = (data: IncomeFormData) => {
         setLoading(true);
 
         addIncome(data, {
