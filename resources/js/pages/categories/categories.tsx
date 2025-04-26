@@ -60,7 +60,7 @@ export default function Categories({ categories }: { categories: Category[] }) {
                 <div className="flex h-full w-1/2 flex-1 flec-col gap-4 rounded-xl p-4 pl-2">
                         <Card className="h-full w-full p-0 overflow-hidden">
                             <h2 className="text-3xl font-bold p-4 m-0"
-                                style={{ backgroundColor: `oklch(55% 0.35 ${selectedCategory?.color})`}}
+                                style={{ backgroundColor: `oklch(66% 0.19 ${selectedCategory?.color})`}}
                             >
                                 { selectedCategory?.name }
                             </h2>

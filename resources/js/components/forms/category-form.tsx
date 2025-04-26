@@ -60,7 +60,7 @@ export function CategoryForm({ closeDialog }: CloseDialogProp) {
                                     <Slider defaultValue={[33]} max={360} step={1} onValueChange={(val) => field.onChange(val[0])} />
                                 <div
                                   className="h-8 w-8 mx-2 rounded-md border shadow"
-                                  style={{ backgroundColor: `oklch(55% 0.35 ${field.value})` }}
+                                  style={{ backgroundColor: `oklch(66% 0.19 ${field.value})` }}
                                 />
                                 </div>
                             </FormControl>
