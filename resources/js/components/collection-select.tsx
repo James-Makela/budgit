@@ -35,7 +35,7 @@ const CollectionSelect = ({ value, collectionLocation, placeholder, onChange }: 
                   console.error('Error fetching data:', error);
             });
 
-    }, );
+    }, [collectionLocation]);
 
     return (
         <Select value={String(value)} onValueChange={(value) => onChange(Number(value))}>
