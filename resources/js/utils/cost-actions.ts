@@ -1,7 +1,7 @@
-import { Cost } from "@/types";
+import { CostFormData } from "@/lib/validations/cost-schema";
 import { router } from "@inertiajs/react"
 
-function addCost(data: Cost, options?: Parameters<typeof router.post>[2]) {
+function addCost(data: CostFormData, options?: Parameters<typeof router.post>[2]) {
     router.post('/costs', data, options);
 }
 
@@ -12,7 +12,15 @@ function deleteCost(id: string) {
     });
 }
 
+function updateCost(id: number, data: CostFormData, ) {
+    router.put(`/costs/${id}`, data, {
+        onSuccess: () => console.log("Cost changed successfully."),
+        onError: (errors) => alert(`Changing cost failed: ${errors}`),
+    });
+}
+
 export {
+    updateCost,
     deleteCost,
     addCost,
 }

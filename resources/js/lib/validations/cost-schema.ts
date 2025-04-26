@@ -2,6 +2,7 @@ import { z } from "zod";
 import { nameSchema, amountSchema } from "./rules";
 
 export const costSchema = z.object({
+    id: z.number().optional(),
     name: nameSchema,
     amount_cents: amountSchema,
     frequency_id: z.number({

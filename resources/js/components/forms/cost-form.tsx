@@ -14,18 +14,30 @@ import {
 import { Input } from "@/components/ui/input"
 import CollectionSelect from "../collection-select"
 import { useCostForm } from "@/hooks/use-cost-form"
-import { CloseDialogProp, Cost } from "@/types"
+import { CostFormProps } from "@/types"
+import { CostFormData } from "@/lib/validations/cost-schema"
+import { useEffect, useState } from "react"
 
-export function CostForm({ closeDialog }: CloseDialogProp) {
+export function CostForm({ mode, costData, closeDialog }: CostFormProps) {
     const { form, onSubmit, loading } = useCostForm();
+    const [formLoaded, setFormLoaded ] = useState(false);
 
-    const handleFormSubmit = (data: Cost) => {
-        try {
-            onSubmit(data);
-            closeDialog();
-        } catch (error) {
-            console.error('Form submission failed:', error);
+    useEffect(() => {
+        if (mode === "edit" && costData && formLoaded) {
+            form.reset({
+                id: costData.id,
+                name: costData.name,
+                amount_cents: costData.amount_cents,
+                frequency_id: costData.frequency_id,
+                category_id: costData.category_id,
+                first_payment: costData.first_payment ?? null,
+            });
         }
+    }, [mode, costData, form, formLoaded]);
+
+    const handleFormSubmit = (data: CostFormData) => {
+        onSubmit(data, mode);
+        closeDialog();
     };
 
     return (
@@ -96,6 +108,9 @@ export function CostForm({ closeDialog }: CloseDialogProp) {
                                     collectionLocation="/api/categories"
                                     placeholder = "Category"
                                     onChange={field.onChange}
+                                    onLoaded={() => {
+                                        setFormLoaded(true)
+                                    }}
                                 />
                             </FormControl>
                             <FormDescription>

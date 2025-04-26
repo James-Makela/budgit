@@ -1,3 +1,4 @@
+import { CostFormData } from '@/lib/validations/cost-schema';
 import { LucideIcon } from 'lucide-react';
 
 export interface Auth {
@@ -44,7 +45,7 @@ export interface CloseDialogProp {
 }
 
 export type Cost = {
-    id: string
+    id: number
     name: string
     amount_cents: number
     yearly_cost: number
@@ -52,6 +53,14 @@ export type Cost = {
     category_id: number
     category_color: string
     frequency_id: number
+}
+
+export type FormMode = "create" | "edit";
+
+export type CostFormProps = {
+    mode: FormMode;
+    costData?: CostFormData;
+    closeDialog: () => void;
 }
 
 export type Income = {

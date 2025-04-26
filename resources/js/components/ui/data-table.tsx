@@ -79,7 +79,7 @@ export function DataTable<TData, TValue>({
               <TableRow
                 key={row.id}
                 data-state={selectable && row.getIsSelected() ? "selected" : undefined}
-                onClick={row.getToggleSelectedHandler()}
+                onClick={selectable ? row.getToggleSelectedHandler(): undefined}
               >
                 {row.getVisibleCells().map((cell) => (
                   <TableCell key={cell.id}>

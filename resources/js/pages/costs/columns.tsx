@@ -7,8 +7,11 @@ import { deleteCost } from "@/utils/cost-actions"
 import { ArrowUpDown } from "lucide-react"
 import { TrashIcon, PencilIcon } from "lucide-react"
 import { Cost } from "@/types"
+import { convertToCurrency } from "@/utils/formatting"
 
-export const columns: ColumnDef<Cost>[] = [
+export const getCostColumns = (
+    onEdit: (cost: Cost) => void
+): ColumnDef<Cost>[] => [
     {
         accessorKey: "name",
         header: () => <div className="text-right">Name</div>,
@@ -17,7 +20,7 @@ export const columns: ColumnDef<Cost>[] = [
         }
     },
     {
-        accessorKey: "amount",
+        accessorKey: "amount_cents",
         header: ({ column }) => {
             return (
                 <div className="flex justify-end">
@@ -32,12 +35,7 @@ export const columns: ColumnDef<Cost>[] = [
             )
         },
         cell: ({ row }) => {
-            const amount = parseFloat(row.getValue("amount"));
-            const formatted = new Intl.NumberFormat("en-AU", {
-                style: "currency",
-    currency: "AUD",
-            }).format(amount);
-
+            const formatted = convertToCurrency(row.getValue("amount_cents"));
             return <div className="text-right font-medium">{formatted}</div>
         },
     },
@@ -52,14 +50,9 @@ export const columns: ColumnDef<Cost>[] = [
         accessorKey: "yearly_cost",
         header: () => <div className="text-right">Amount (per year)</div>,
         cell: ({ row }) => {
-            const amount = parseFloat(row.getValue("yearly_cost"));
-            const formatted = new Intl.NumberFormat("en-AU", {
-                style: "currency",
-                currency: "AUD",
-        }).format(amount);
-
-        return <div className="text-right font-medium">{formatted}</div>
-    },
+            const formatted = convertToCurrency(row.getValue("yearly_cost"));
+            return <div className="text-right font-medium">{formatted}</div>
+        },
     },
     {
         accessorKey: "category",
@@ -90,7 +83,10 @@ export const columns: ColumnDef<Cost>[] = [
                     <TrashIcon/>
                 </Button>
                 <Button
-                    onClick={() => deleteCost(row.getValue('id'))}
+                    onClick={() => {
+                        onEdit(row.original);
+                    }}
+
                     variant={"ghost"}
                     size={"icon"}
                 >

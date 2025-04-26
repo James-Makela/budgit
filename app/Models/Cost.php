@@ -13,14 +13,6 @@ class Cost extends Model
     /** @use HasFactory<\Database\Factories\CostFactory> */
     use HasFactory;
 
-    // Multiply when saving to save cents value
-    protected function amountCents(): Attribute
-    {
-        return Attribute::make(
-            set: fn (float $value) => intval(round($value * 100)),
-        );
-    }
-
     public function yearlyCost(): Attribute
     {
         return Attribute::make(
@@ -37,14 +29,13 @@ class Cost extends Model
     }
 
     // Calculate the yearly cost based on cost frequency
-    protected function calculateYearlyCost() {
+    protected function calculateYearlyCost(): int {
         if (!$this->frequency || $this->frequency->multiplier == 0)
         {
             return $this->amount_cents;
         }
         $yearly_cents = $this->amount_cents * $this->frequency->multiplier;
-        $yearly_dollars = $yearly_cents / 100;
-        return $yearly_dollars;
+        return $yearly_cents;
     }
 }
 

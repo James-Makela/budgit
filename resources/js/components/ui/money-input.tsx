@@ -1,5 +1,4 @@
 "use client";
-import { useReducer } from "react";
 import {
   FormControl,
   FormField,
@@ -17,7 +16,6 @@ type TextInputProps<T extends FieldValues> = {
   placeholder: string;
 };
 
-// Brazilian currency config
 const moneyFormatter = Intl.NumberFormat("en-AU", {
   currency: "AUD",
   currencyDisplay: "symbol",
@@ -27,28 +25,21 @@ const moneyFormatter = Intl.NumberFormat("en-AU", {
   maximumFractionDigits: 2,
 });
 
-function MoneyInput<T extends FieldValues>({ form, name, label, placeholder}: TextInputProps<T>) {
-  const initialValue = form.getValues()[name]
-    ? moneyFormatter.format(form.getValues()[name])
-    : "";
-
-  const [value, setValue] = useReducer((_: string, next: string) => {
-    const digits = next.replace(/\D/g, "");
-    return moneyFormatter.format(Number(digits) / 100);
-  }, initialValue);
-
-  function handleChange(realChangeFn: (value: number) => void, formattedValue: string) {
-    const digits = formattedValue.replace(/\D/g, "");
-    const realValue = Number(digits) / 100;
-    realChangeFn(realValue);
-  }
-
+function MoneyInput<T extends FieldValues>({ form, name, label, placeholder }: TextInputProps<T>) {
   return (
     <FormField
       control={form.control}
       name={name}
       render={({ field }) => {
-        const _change = field.onChange;
+        const format = (value: number | string) => {
+          const numeric = typeof value === "string" ? Number(value) : value;
+          return moneyFormatter.format(numeric / 100);
+        };
+
+        const parse = (formatted: string) => {
+          const digits = formatted.replace(/\D/g, "");
+          return Number(digits); // Keep as cents (integer)
+        };
 
         return (
           <FormItem>
@@ -57,12 +48,8 @@ function MoneyInput<T extends FieldValues>({ form, name, label, placeholder}: Te
               <Input
                 placeholder={placeholder}
                 type="text"
-                {...field}
-                onChange={(ev) => {
-                  setValue(ev.target.value);
-                  handleChange(_change, ev.target.value);
-                }}
-                value={value}
+                value={format(field.value ?? 0)}
+                onChange={(e) => field.onChange(parse(e.target.value))}
               />
             </FormControl>
             <FormMessage />

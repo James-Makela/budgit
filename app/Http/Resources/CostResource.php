@@ -17,10 +17,12 @@ class CostResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'amount' => $this->amount_cents / 100,
+            'amount_cents' => $this->amount_cents,
             'yearly_cost' => $this->yearly_cost,
+            'category_id' => $this->category->id,
             'category' => $this->category->name,
             'category_color' => $this->category->color,
+            'frequency_id' => $this->frequency->id,
             'frequency' => $this->frequency->name,
         ];
     }

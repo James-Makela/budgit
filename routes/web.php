@@ -23,6 +23,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/costs', [CostController::class, 'index'])->name('costs');
     Route::post('/costs', [CostController::class, 'store']);
+    Route::put('/costs/{cost}', [CostController::class, 'update']);
     Route::delete('/costs/{id}', [CostController::class, 'destroy']);
 
     Route::get('/categories', [CategoryController::class, 'index'])->name('categories');

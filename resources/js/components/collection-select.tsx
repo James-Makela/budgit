@@ -20,9 +20,10 @@ interface CollectionSelectProps {
     collectionLocation: string;
     placeholder: string;
     onChange: (value: number) => void;
+    onLoaded?: () => void;
 }
 
-const CollectionSelect = ({ value, collectionLocation, placeholder, onChange }: CollectionSelectProps) => {
+const CollectionSelect = ({ value, collectionLocation, placeholder, onChange, onLoaded }: CollectionSelectProps) => {
     const [items, setItems] = useState<Collection[]>([]);
 
     useEffect(() => {
@@ -30,24 +31,29 @@ const CollectionSelect = ({ value, collectionLocation, placeholder, onChange }: 
         axios.get(collectionLocation)
             .then((response) => {
                 setItems(response.data);
+                onLoaded?.();
             })
             .catch((error) => {
-                  console.error('Error fetching data:', error);
+                console.error('Error fetching data:', error);
             });
 
-    }, [collectionLocation]);
+    }, [collectionLocation, onLoaded]);
 
     return (
-        <Select value={String(value)} onValueChange={(value) => onChange(Number(value))}>
+        <Select
+            value={String(value)}
+            onValueChange={(value) => onChange(Number(value))}
+        >
             <SelectTrigger className="w-[180px]">
                 <SelectValue placeholder={placeholder} />
             </SelectTrigger>
             <SelectContent>
-            {items.map((item) => (
+                {items.map((item) => (
                     <SelectItem key={item.id} value={String(item.id)}>
                         {item.name}
                     </SelectItem>
-                ))}
+                )
+            )}
             </SelectContent>
         </Select>
     );
