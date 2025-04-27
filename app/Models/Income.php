@@ -13,14 +13,6 @@ class Income extends Model
     /** @use HasFactory<\Database\Factories\IncomeFactory> */
     use HasFactory;
 
-    // Multiply when saving to save cents value
-    protected function incomeCents(): Attribute
-    {
-        return Attribute::make(
-            set: fn (float $value) => intval(round($value * 100)),
-        );
-    }
-
     public function yearlyIncome(): Attribute
     {
         return Attribute::make(
@@ -39,7 +31,6 @@ class Income extends Model
             return $this->income_cents;
         }
         $yearly_cents = $this->income_cents * $this->frequency->multiplier;
-        $yearly_dollars = $yearly_cents / 100;
-        return $yearly_dollars;
+        return $yearly_cents;
     }
 }
