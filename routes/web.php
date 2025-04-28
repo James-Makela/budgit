@@ -5,6 +5,8 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FrequencyController;
 use App\Http\Controllers\IncomeController;
+use App\Http\Controllers\TransactionController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -29,6 +31,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/categories', [CategoryController::class, 'index'])->name('categories');
     Route::post('/categories', [CategoryController::class, 'store']);
     Route::delete('/categories/{id}', [CategoryController::class, 'destroy']);
+
+    Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions');
+    Route::post('/transactions', [TransactionController::class, 'store']);
+
+    Route::post('/test', function (Request $request) {
+        dd($request->all()); // Check if this works
+    });
 });
 
 // TODO: Move api routes to api file

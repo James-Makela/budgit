@@ -1,4 +1,5 @@
 import { CostFormData } from '@/lib/validations/cost-schema';
+import { TransactionFormData } from '@/lib/validations/transaction-schema';
 import { LucideIcon } from 'lucide-react';
 
 export interface Auth {
@@ -44,6 +45,12 @@ export interface CloseDialogProp {
     closeDialog: () => void;
 }
 
+export type FormMode = "create" | "edit";
+
+export type FormErrorResponse = {
+    [key: string]: string[]; // Field name as key, array of error messages as values
+};
+
 export type Cost = {
     id: number
     name: string
@@ -55,8 +62,6 @@ export type Cost = {
     frequency_id: number
 }
 
-export type FormMode = "create" | "edit";
-
 export type CostFormProps = {
     mode: FormMode;
     costData?: CostFormData;
@@ -64,20 +69,35 @@ export type CostFormProps = {
 }
 
 export type Income = {
-    id: string
+    id: number
     source: string
     person: string
     income_cents: number
-    frequency_id: string
+    frequency_id: number
 }
 
 export type Category = {
-    id: string
+    id: number
     name: string
     color: number
     icon: string
 }
 
-export type FormErrorResponse = {
-    [key: string]: string[]; // Field name as key, array of error messages as values
-};
+export type Transaction = {
+    id: number
+    date: Date
+    description: string
+    credit_cents: number
+    debit_cents: number
+    balance_cents: number
+    is_processed: boolean
+    category_id: number
+    category_color: string
+}
+
+export type TransactionFormProps = {
+    mode: FormMode;
+    transactionData?: TransactionFormData;
+    closeDialog: () => void;
+}
+

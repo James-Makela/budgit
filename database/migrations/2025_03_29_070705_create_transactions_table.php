@@ -19,6 +19,8 @@ return new class extends Migration
             $table->integer('credit_cents')->nullable();
             $table->integer('debit_cents')->nullable();
             $table->integer('balance_cents');
+            $table->boolean('is_processed')->default(false)->change();
+            $table->foreignId('category_id')->constrained();
         });
     }
 

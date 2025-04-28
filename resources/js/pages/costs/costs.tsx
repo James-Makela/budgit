@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { getCostColumns } from "./columns";
 import { DataTable } from '@/components/ui/data-table';
 import AppLayout from '@/layouts/app-layout';
@@ -47,7 +47,7 @@ export default function Costs({ costs }: { costs: Cost[] }) {
                         setDialogOpen(true);
                     }}
                 >Add Cost</Button>
-                <FormDialog open={isDialogOpen} onOpenChange={handleDialogStateChange} title={dialogTitle} >
+                <FormDialog open={isDialogOpen} onOpenChange={handleDialogStateChange} title={dialogTitle} description="Form to enter a new cost" >
                     <CostForm
                         mode={formMode}
                         costData={costToEdit ?? undefined}

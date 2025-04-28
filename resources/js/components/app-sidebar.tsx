@@ -40,7 +40,7 @@ const mainNavItems: NavItem[] = [
     },
     {
         title: 'All Transactions',
-        url: '/dashboard', // placeholder
+        url: '/transactions',
         icon: ListIcon,
     },
 ];

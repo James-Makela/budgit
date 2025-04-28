@@ -11,7 +11,11 @@ class Category extends Model
     /** @use HasFactory<\Database\Factories\CategoryFactory> */
     use HasFactory;
 
-    public function categories() {
+    public function costs() {
         return $this->hasMany(Cost::class);
+    }
+
+    public function transactions() {
+        return $this->hasMany(Transaction::class);
     }
 }
