@@ -24,6 +24,8 @@ export default function Costs({ costs }: { costs: Cost[] }) {
     const [costToEdit, setCostToEdit] = useState<Cost | null>(null);
 
     const handleDialogStateChange = (open: boolean) => {
+        setDialogTitle("Add Cost");
+        setFormMode("create");
         setDialogOpen(open);
     };
 

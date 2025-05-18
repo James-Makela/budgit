@@ -23,6 +23,8 @@ export default function Transactions({ transactions }: { transactions: Transacti
     const [transactionToEdit, setTransactionToEdit] = useState<Transaction | null>(null);
 
     const handleDialogStateChange = (open: boolean) => {
+        setDialogTitle("Add Transaction");
+        setFormMode("create");
         setDialogOpen(open);
     };
 
